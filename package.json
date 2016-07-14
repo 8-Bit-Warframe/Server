@@ -12,7 +12,10 @@
     "start": "ember server",
     "test": "ember test"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/8-Bit-Warframe/Website.git"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
