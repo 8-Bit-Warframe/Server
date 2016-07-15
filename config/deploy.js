@@ -14,12 +14,6 @@ module.exports = function (deployTarget) {
         }
     };
 
-    ENV.ftp = {
-        host: "8bitwarframe.com",
-        username: process.env.ls_ftp_username,
-        password: process.env.ls_ftp_password
-    };
-
     if (deployTarget === 'development') {
         ENV.build.environment = 'development';
         // configure other plugins for development deploy target here
