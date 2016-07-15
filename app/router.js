@@ -7,8 +7,8 @@ const Router = Ember.Router.extend({
 
 Router.map(function () {
 	this.route('about');
-	this.route('download');
 	this.route('media');
+	this.route('download');
 });
 
 export default Router;
