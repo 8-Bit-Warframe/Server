@@ -1,0 +1,57 @@
+@font-face {
+	font-family: pixel;
+	src: url('/fonts/pixel.ttf');
+}
+
+body {
+	background: #000;
+}
+
+header {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	background-image: url('/images/bg.png');
+
+	&:before {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(255, 255, 255, 0.3);
+	}
+
+	img.header {
+		position: absolute;
+		left: 4%;
+		width: 92%;
+	}
+
+	div.tabs {
+		position: absolute;
+		left: 7.8125%;
+		bottom: 0;
+		width: 84.375%;
+	}
+
+	img.download {
+		width: 100%;
+		height: 100%;
+	}
+
+	img.news {
+		position: absolute;
+		left: 6.79012345679012345679012345679%;
+		top: 6.25%;
+		width: 25.925925925925925925925925925926%;
+	}
+
+	img.about {
+		position: absolute;
+		left: 67.283950617283950617283950617284%;
+		top: 6.25%;
+		width: 25.925925925925925925925925925926%;
+	}
+}
