@@ -10,7 +10,8 @@ module.exports = function (deployTarget) {
         ftp: {
             host: "8bitwarframe.com",
             username: process.env.ls_ftp_username,
-            password: process.env.ls_ftp_password
+            password: process.env.ls_ftp_password,
+            remoteRoot: '/var/www'
         }
     };
 

@@ -32,7 +32,6 @@
     "ember-cli-deploy-build": "0.1.1",
     "ember-cli-deploy-display-revisions": "0.2.2",
     "ember-cli-deploy-ftp": "1.0.0",
-    "ember-cli-deploy-gzip": "0.2.3",
     "ember-cli-deploy-revision-data": "0.2.3",
     "ember-cli-htmlbars": "^1.0.3",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
