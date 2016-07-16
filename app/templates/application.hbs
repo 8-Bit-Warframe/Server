@@ -1,9 +1,18 @@
 <header>
     <img src="/images/header.png" class="header"/>
     <div class="tabs">
-        <img src="/images/download.png" class="download"/>
-        <img src="/images/news.png" class="news"/>
-        <img src="/images/about.png" class="about"/>
+        <div class="download">
+            <img src="/images/download.png"/>
+            {{#link-to "download"}}<h2>DOWNLOAD</h2>{{/link-to}}
+        </div>
+        <div class="news">
+            <img src="/images/news.png"/>
+            {{#link-to "news"}}<h2>NEWS</h2>{{/link-to}}
+        </div>
+        <div class="about">
+            <img src="/images/about.png" class="about"/>
+            {{#link-to "about"}}<h2>ABOUT</h2>{{/link-to}}
+        </div>
     </div>
 </header>
 {{outlet}}

@@ -3,6 +3,11 @@
 	src: url('/fonts/pixel.ttf');
 }
 
+@font-face {
+	font-family: pixel-bold;
+	src: url('/fonts/pixel-bold.ttf');
+}
+
 body {
 	background: #000;
 	margin: 0;
@@ -36,24 +41,58 @@ header {
 		left: 7.8125%;
 		bottom: 0;
 		width: 84.375%;
-	}
 
-	img.download {
-		width: 100%;
-		height: 100%;
-	}
+		h2 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			margin: 0;
+			color: white;
+			font-family: pixel-bold, sans-serif;
+			text-align: center;
+			transition: color 300ms;
+		}
 
-	img.news {
-		position: absolute;
-		left: 6.79012345679012345679012345679%;
-		top: 6.25%;
-		width: 25.925925925925925925925925925926%;
-	}
+		h2:hover {
+			color: #00A2E8;
+		}
 
-	img.about {
-		position: absolute;
-		left: 67.283950617283950617283950617284%;
-		top: 6.25%;
-		width: 25.925925925925925925925925925926%;
+		img {
+			width: 100%;
+		}
+
+		div.download {
+			width: 100%;
+
+			h2 {
+				line-height: 10vw;
+				font-size: 3.4vw;
+			}
+		}
+
+		div.news {
+			position: absolute;
+			left: 6.79%;
+			top: 6.25%;
+			width: 25.93%;
+
+			h2 {
+				line-height: 5.8vw;
+				font-size: 2vw;
+			}
+		}
+
+		div.about {
+			position: absolute;
+			left: 67.28%;
+			top: 6.25%;
+			width: 25.93%;
+
+			h2 {
+				line-height: 5.8vw;
+				font-size: 2vw;
+			}
+		}
 	}
 }
