@@ -14,6 +14,10 @@ body {
 	height: calc(200vh - 8.2vw);
 }
 
+a, a:hover, a:visited {
+	color: #00A2E8;
+}
+
 header {
 	position: absolute;
 	left: 0;
