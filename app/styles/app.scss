@@ -113,3 +113,28 @@ header {
 		}
 	}
 }
+
+div.downloads {
+	font-family: Arial,sans-serif;
+	color: white;
+
+	h2 {
+		font-size: 1.8em;
+		text-align: center;
+	}
+
+	div.half {
+		position: absolute;
+		width: 50%;
+		padding: 0 5%;
+		box-sizing: border-box;
+	}
+
+	div.half.left {
+		left: 0;
+	}
+
+	div.half.right {
+		left: 50%;
+	}
+}
