@@ -2,6 +2,7 @@ import Player from "./player";
 
 export default class Game {
     id: number;
+    idCounter: number = 0;
     players: Array<Player> = [];
     host: Player = null;
 
@@ -13,8 +14,12 @@ export default class Game {
         if (host) {
             if (this.host != null) {
                 console.error("Could not set player as host, as a host already exists");
+            } else {
+                this.host = player;
             }
         }
+        player.setId(this.idCounter++);
+        this.players.push(player);
     }
 
     removePlayer(player: Player) {
