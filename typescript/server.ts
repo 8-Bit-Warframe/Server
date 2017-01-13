@@ -15,6 +15,8 @@ const GAME_CREATE: string = "game_create";
 const GAME_JOIN: string = "game_join";
 const GAME_PING: string = "game_ping";
 const GAME_LEAVE: string = "game_leave";
+const PLAYER_JOIN: string = "player_join";
+const PLAYER_LEAVE: string = "player_leave";
 
 class Message {
     message: string;

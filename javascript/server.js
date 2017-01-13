@@ -11,6 +11,8 @@ const GAME_CREATE = "game_create";
 const GAME_JOIN = "game_join";
 const GAME_PING = "game_ping";
 const GAME_LEAVE = "game_leave";
+const PLAYER_JOIN = "player_join";
+const PLAYER_LEAVE = "player_leave";
 class Message {
     constructor() {
         this.gameId = null;
