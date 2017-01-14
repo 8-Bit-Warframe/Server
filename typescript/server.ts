@@ -1,6 +1,7 @@
 import Player from "./player";
 import {AddressInfo} from "dgram";
 import GameManager from "./gamemanager";
+import Game from "./game";
 
 const dgram = require("dgram");
 const server = dgram.createSocket("udp4");
@@ -27,7 +28,7 @@ server.on("message", function (msg: string, info: AddressInfo) {
     const player = Player.fromAddressInfo(info);
     const message = JSON.parse(msg) as Message;
 
-    let game = null;
+    let game: Game = null;
     if (message.gameId != null) {
         game = GameManager.getGameById(message.gameId);
     }
