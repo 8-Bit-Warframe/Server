@@ -57,10 +57,11 @@ server.on("message", function (msg, info) {
 function joinMatchmaking(player) {
     let game = GameManager.findGame();
     if (game) {
+        game.addPlayer(player);
         const message = {
             message: GAME_JOIN,
-            players: game.players,
-            playerId: game.getAvailableId()
+            players: game.getPlayers(),
+            playerId: game.getPlayerId(player)
         };
         sendMessage(JSON.stringify(message), player);
     }

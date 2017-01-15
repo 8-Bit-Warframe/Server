@@ -1,11 +1,11 @@
 export default class Game {
     constructor(id) {
-        this.idCounter = 0;
         this.players = [];
+        this.probation = [];
         this.host = null;
         this.id = id;
     }
-    addPlayer(player, host = false) {
+    addPlayer(player, host = false, probation = true) {
         if (host) {
             if (this.host != null) {
                 console.error("Could not set player as host, as a host already exists");
@@ -14,8 +14,9 @@ export default class Game {
                 this.host = player;
             }
         }
-        player.setId(this.idCounter++);
-        this.players.push(player);
+        const id = this.getAvailableId();
+        this.players[id] = player;
+        this.probation[id] = true;
     }
     removePlayer(player) {
         this.players.splice(this.players.findIndex(p => p.ip == player.ip && p.port == player.port));
@@ -25,10 +26,16 @@ export default class Game {
     }
     getAvailableId() {
         let id = 0;
-        while (this.players.some(player => player.id == id)) {
+        while (this.players[id] != null) {
             id++;
         }
         return id;
+    }
+    getPlayers() {
+        return this.players.filter(player => player != null);
+    }
+    getPlayerId(player) {
+        return this.players.find(p => player.ip == p.ip && player.port == p.port);
     }
 }
 //# sourceMappingURL=game.js.map
