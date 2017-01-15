@@ -54,6 +54,7 @@ server.on("message", function (msg, info) {
             break;
     }
 });
+server.bind(3000);
 function joinMatchmaking(player) {
     let game = GameManager.findGame();
     if (game) {

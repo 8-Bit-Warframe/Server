@@ -61,6 +61,8 @@ server.on("message", function (msg: string, info: AddressInfo) {
     }
 });
 
+server.bind(3000);
+
 function joinMatchmaking(player: Player) {
     let game = GameManager.findGame();
     if (game) {
