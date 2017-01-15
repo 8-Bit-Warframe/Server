@@ -70,7 +70,8 @@ function joinMatchmaking(player: Player) {
         const message = {
             message: GAME_JOIN,
             players: game.getPlayers(),
-            playerId: game.getPlayerId(player)
+            playerId: game.getPlayerId(player),
+            gameId: game.id
         };
         sendMessage(JSON.stringify(message), player);
     } else {
