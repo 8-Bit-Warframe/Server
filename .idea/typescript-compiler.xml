@@ -6,6 +6,7 @@
     <option name="hasOutDirectory" value="true" />
     <option name="outDirectory" value="$FileDir$/../javascript" />
     <option name="useConfig" value="true" />
+    <option name="showAllErrors" value="true" />
     <option name="versionType" value="SERVICE_DIRECTORY" />
   </component>
 </project>

@@ -23,5 +23,12 @@ export default class Game {
     isHost(player) {
         return player.ip == this.host.ip && player.port == this.host.port;
     }
+    getAvailableId() {
+        let id = 0;
+        while (this.players.some(player => player.id == id)) {
+            id++;
+        }
+        return id;
+    }
 }
 //# sourceMappingURL=game.js.map

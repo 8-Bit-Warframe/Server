@@ -59,7 +59,8 @@ function joinMatchmaking(player) {
     if (game) {
         const message = {
             message: GAME_JOIN,
-            players: game.players
+            players: game.players,
+            playerId: game.getAvailableId()
         };
         sendMessage(JSON.stringify(message), player);
     }
