@@ -69,6 +69,23 @@ var Game = function () {
                 return player.uid == p.uid;
             });
         }
+    }, {
+        key: "getJson",
+        value: function getJson() {
+            var players = [];
+            for (var i = 0; i < this.players.length; i++) {
+                if (this.players[i] == null) {
+                    players[i] = null;
+                } else {
+                    players[i] = this.players[i].getJson();
+                    players[i].host = this.isHost(this.players[i]);
+                }
+            }
+            return JSON.stringify({
+                id: this.id,
+                players: players
+            });
+        }
     }]);
 
     return Game;

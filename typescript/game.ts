@@ -46,4 +46,20 @@ export default class Game {
     getPlayerId(player: Player) {
         return this.players.find(p => player.uid == p.uid);
     }
+
+    getJson(): string {
+        const players = [];
+        for (let i = 0; i < this.players.length; i++) {
+            if (this.players[i] == null) {
+                players[i] = null;
+            } else {
+                players[i] = this.players[i].getJson();
+                players[i].host = this.isHost(this.players[i]);
+            }
+        }
+        return JSON.stringify({
+            id: this.id,
+            players: players
+        });
+    }
 }

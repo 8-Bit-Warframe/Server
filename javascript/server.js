@@ -96,9 +96,8 @@ function joinMatchmaking(player) {
         game.addPlayer(player);
         var message = {
             message: GAME_JOIN,
-            players: game.getPlayers(),
             playerId: game.getPlayerId(player),
-            gameId: game.id
+            game: game.getJson()
         };
         sendMessage(JSON.stringify(message), player);
     } else {

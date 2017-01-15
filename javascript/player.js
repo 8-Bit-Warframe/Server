@@ -17,7 +17,15 @@ var Player = function () {
         this.uid = ip + port;
     }
 
-    _createClass(Player, null, [{
+    _createClass(Player, [{
+        key: "getJson",
+        value: function getJson() {
+            return JSON.stringify({
+                ip: this.ip,
+                port: this.port
+            });
+        }
+    }], [{
         key: "fromAddressInfo",
         value: function fromAddressInfo(info) {
             return new Player(info.address, info.port);
