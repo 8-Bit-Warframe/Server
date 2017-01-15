@@ -37,7 +37,7 @@ server.on("message", function (msg: string, info: AddressInfo) {
             joinMatchmaking(player);
             break;
         case GAME_CREATE:
-            GameManager.createGame().addPlayer(player, true);
+            GameManager.createGame().addPlayer(player, true, false);
             break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
