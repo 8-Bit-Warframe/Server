@@ -19,10 +19,10 @@ export default class Game {
         this.probation[id] = true;
     }
     removePlayer(player) {
-        this.players.splice(this.players.findIndex(p => p.ip == player.ip && p.port == player.port));
+        this.players.splice(this.players.findIndex(p => p.uid == player.uid));
     }
     isHost(player) {
-        return player.ip == this.host.ip && player.port == this.host.port;
+        return player.uid == this.host.uid;
     }
     getAvailableId() {
         let id = 0;
@@ -35,7 +35,7 @@ export default class Game {
         return this.players.filter(player => player != null);
     }
     getPlayerId(player) {
-        return this.players.find(p => player.ip == p.ip && player.port == p.port);
+        return this.players.find(p => player.uid == p.uid);
     }
 }
 //# sourceMappingURL=game.js.map

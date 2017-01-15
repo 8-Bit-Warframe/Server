@@ -24,11 +24,11 @@ export default class Game {
     }
 
     removePlayer(player: Player) {
-        this.players.splice(this.players.findIndex(p => p.ip == player.ip && p.port == player.port));
+        this.players.splice(this.players.findIndex(p => p.uid == player.uid));
     }
 
     isHost(player: Player) {
-        return player.ip == this.host.ip && player.port == this.host.port;
+        return player.uid == this.host.uid;
     }
 
     private getAvailableId(): number {
@@ -44,6 +44,6 @@ export default class Game {
     }
 
     getPlayerId(player: Player) {
-        return this.players.find(p => player.ip == p.ip && player.port == p.port);
+        return this.players.find(p => player.uid == p.uid);
     }
 }
