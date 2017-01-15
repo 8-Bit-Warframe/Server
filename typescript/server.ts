@@ -41,7 +41,7 @@ server.on("message", function (msg: string, info: AddressInfo) {
             break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
-                for (let player of game.players) {
+                for (let player of game.getPlayers()) {
                     game.removePlayer(player);
                     const message = {
                         message: GAME_LEAVE,
