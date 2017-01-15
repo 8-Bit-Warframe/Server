@@ -5,7 +5,7 @@ export default class Game {
         this.host = null;
         this.id = id;
     }
-    addPlayer(player, host = false, probation = true) {
+    addPlayer(player, host = false) {
         if (host) {
             if (this.host != null) {
                 console.error("Could not set player as host, as a host already exists");
@@ -16,7 +16,7 @@ export default class Game {
         }
         const id = this.getAvailableId();
         this.players[id] = player;
-        this.probation[id] = true;
+        this.probation[id] = player.uid != this.host.uid;
     }
     removePlayer(player) {
         this.players.splice(this.players.findIndex(p => p.uid == player.uid));
