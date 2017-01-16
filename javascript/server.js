@@ -61,7 +61,7 @@ server.on("message", function (msg, info) {
                             message: GAME_LEAVE,
                             reason: "Host disconnected"
                         };
-                        server.send(JSON.stringify(_message), _player);
+                        sendMessage(JSON.stringify(_message), _player);
                     }
                 } catch (err) {
                     _didIteratorError = true;

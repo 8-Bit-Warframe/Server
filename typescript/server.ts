@@ -47,7 +47,7 @@ server.on("message", function (msg: string, info: AddressInfo) {
                         message: GAME_LEAVE,
                         reason: "Host disconnected"
                     };
-                    server.send(JSON.stringify(message), player);
+                    sendMessage(JSON.stringify(message), player);
                 }
                 GameManager.destroyGame(game);
             } else {
