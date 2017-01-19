@@ -24,7 +24,7 @@ export default class Game {
     }
 
     removePlayer(player: Player) {
-        this.players.splice(this.players.findIndex(p => p.uid == player.uid));
+        this.players.splice(this.players.findIndex(p => p.uid == player.uid), 1);
     }
 
     isHost(player: Player) {

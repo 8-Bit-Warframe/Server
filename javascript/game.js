@@ -39,7 +39,7 @@ var Game = function () {
         value: function removePlayer(player) {
             this.players.splice(this.players.findIndex(function (p) {
                 return p.uid == player.uid;
-            }));
+            }), 1);
         }
     }, {
         key: "isHost",

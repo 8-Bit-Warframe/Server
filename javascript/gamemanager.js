@@ -50,7 +50,7 @@ var GameManager = function () {
         value: function destroyGame(game) {
             GameManager.games.splice(GameManager.games.findIndex(function (g) {
                 return g.id == game.id;
-            }));
+            }), 1);
         }
     }]);
 

@@ -23,6 +23,6 @@ export default class GameManager {
     }
 
     static destroyGame(game: Game) {
-        GameManager.games.splice(GameManager.games.findIndex(g => g.id == game.id));
+        GameManager.games.splice(GameManager.games.findIndex(g => g.id == game.id), 1);
     }
 }
