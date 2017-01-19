@@ -20,9 +20,12 @@ var Player = function () {
     _createClass(Player, [{
         key: "getJson",
         value: function getJson() {
+            var host = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
             return JSON.stringify({
                 ip: this.ip,
-                port: this.port
+                port: this.port,
+                host: host
             });
         }
     }], [{

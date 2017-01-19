@@ -54,7 +54,6 @@ export default class Game {
                 players[i] = null;
             } else {
                 players[i] = this.players[i].getJson();
-                players[i].host = this.isHost(this.players[i]);
             }
         }
         return JSON.stringify({

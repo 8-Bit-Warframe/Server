@@ -78,7 +78,6 @@ var Game = function () {
                     players[i] = null;
                 } else {
                     players[i] = this.players[i].getJson();
-                    players[i].host = this.isHost(this.players[i]);
                 }
             }
             return JSON.stringify({
