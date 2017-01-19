@@ -28,7 +28,8 @@ var GameManager = function () {
             })) {
                 id++;
             }
-            return new _game2.default(id);
+            this.games[id] = new _game2.default(id);
+            return this.games[id];
         }
     }, {
         key: "findGame",

@@ -10,7 +10,8 @@ export default class GameManager {
         while (GameManager.games.some(game => game.id == id)) {
             id++;
         }
-        return new Game(id);
+        this.games[id] = new Game(id);
+        return this.games[id];
     }
 
     static findGame(): Game {
