@@ -141,7 +141,7 @@ function printState() {
             }
             log += "+-------+---------+---------------+\n";
             log += "|host   |ip       |" + pad(game.host.ip, 15) + "|\n";
-            log += "|       |port     |" + pad(game.host.ip, 15) + "|\n";
+            log += "|       |port     |" + pad(game.host.port, 15) + "|\n";
             log += "+-------+---------+---------------+\n";
             log += "\n";
             console.log(log);
