@@ -42,9 +42,13 @@ server.on("message", function (msg, info) {
     switch (message.message) {
         case MATCHMAKING_JOIN:
             joinMatchmaking(player);
+            console.log("Player joined matchmaking");
+            printState();
             break;
         case GAME_CREATE:
             _gamemanager2.default.createGame().addPlayer(player, true);
+            console.log("Game created");
+            printState();
             break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
@@ -82,6 +86,8 @@ server.on("message", function (msg, info) {
             } else {
                 game.removePlayer(player);
             }
+            console.log("Player left game");
+            printState();
             break;
         case GAME_PING:
             break;
@@ -109,4 +115,55 @@ function joinMatchmaking(player) {
 }
 function sendMessage(message, player) {
     server.send(message, player.port, player.ip);
+}
+function printState() {
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+        for (var _iterator2 = _gamemanager2.default.games[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var game = _step2.value;
+
+            var log = "\n";
+            log += "+---------------------------------+\n";
+            log += "|Game                             |\n";
+            log += "+-------+-------------------------+\n";
+            log += "|id     |" + pad(game.id, 25) + "|\n";
+            log += "+-------+-------------------------+\n";
+            log += "|players                          |\n";
+            for (var i = 0; i < game.players.length; i++) {
+                var player = game.players[i];
+                log += "+-------+---------+---------------+\n";
+                log += "|       |ip       |" + pad(player.ip, 15) + "|";
+                log += "|       |port     |" + pad(player.port, 15) + "|";
+                log += "|       |probation|" + pad(game.probation[i], 15) + "|";
+            }
+            log += "+-------+---------+---------------+\n";
+            log += "|host   |ip       |" + pad(game.host.ip, 15) + "|";
+            log += "|       |port     |" + pad(game.host.ip, 15) + "|";
+            log += "+-------+---------+---------------+";
+            log += "\n";
+        }
+    } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+            }
+        } finally {
+            if (_didIteratorError2) {
+                throw _iteratorError2;
+            }
+        }
+    }
+}
+function pad(object, targetLength) {
+    var str = object.toString();
+    while (str.length < targetLength) {
+        str += " ";
+    }
+    return str;
 }

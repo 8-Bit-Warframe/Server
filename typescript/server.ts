@@ -35,9 +35,13 @@ server.on("message", function (msg: string, info: AddressInfo) {
     switch (message.message) {
         case MATCHMAKING_JOIN:
             joinMatchmaking(player);
+            console.log("Player joined matchmaking");
+            printState();
             break;
         case GAME_CREATE:
             GameManager.createGame().addPlayer(player, true);
+            console.log("Game created");
+            printState();
             break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
@@ -53,6 +57,8 @@ server.on("message", function (msg: string, info: AddressInfo) {
             } else {
                 game.removePlayer(player);
             }
+            console.log("Player left game");
+            printState();
             break;
         case GAME_PING:
             break;
@@ -84,4 +90,36 @@ function joinMatchmaking(player: Player) {
 
 function sendMessage(message: string, player: Player) {
     server.send(message, player.port, player.ip);
+}
+
+function printState() {
+    for (let game of GameManager.games) {
+        let log = "\n";
+        log += "+---------------------------------+\n";
+        log += "|Game                             |\n";
+        log += "+-------+-------------------------+\n";
+        log += "|id     |" + pad(game.id, 25) + "|\n";
+        log += "+-------+-------------------------+\n";
+        log += "|players                          |\n";
+        for (let i = 0; i < game.players.length; i++) {
+            let player = game.players[i];
+            log += "+-------+---------+---------------+\n";
+            log += "|       |ip       |" + pad(player.ip, 15) + "|";
+            log += "|       |port     |" + pad(player.port, 15) + "|";
+            log += "|       |probation|" + pad(game.probation[i], 15) + "|";
+        }
+        log += "+-------+---------+---------------+\n";
+        log += "|host   |ip       |" + pad(game.host.ip, 15) + "|";
+        log += "|       |port     |" + pad(game.host.ip, 15) + "|";
+        log += "+-------+---------+---------------+";
+        log += "\n";
+    }
+}
+
+function pad(object: any, targetLength: number): string {
+    let str: string = object.toString();
+    while (str.length < targetLength) {
+        str += " ";
+    }
+    return str;
 }
