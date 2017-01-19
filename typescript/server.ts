@@ -43,6 +43,9 @@ server.on("message", function (msg: string, info: AddressInfo) {
             console.log("Game created");
             printState();
             break;
+        case GAME_JOIN:
+            game.confirmPlayer(player);
+            break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
                 for (let player of game.getPlayers()) {

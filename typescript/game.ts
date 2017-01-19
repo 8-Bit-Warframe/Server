@@ -23,6 +23,10 @@ export default class Game {
         this.probation[id] = player.uid != this.host.uid;
     }
 
+    confirmPlayer(player: Player) {
+        this.probation[this.players.findIndex(p => p.uid == player.uid)] = false;
+    }
+
     removePlayer(player: Player) {
         this.players.splice(this.players.findIndex(p => p.uid == player.uid), 1);
     }

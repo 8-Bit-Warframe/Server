@@ -50,6 +50,9 @@ server.on("message", function (msg, info) {
             console.log("Game created");
             printState();
             break;
+        case GAME_JOIN:
+            game.confirmPlayer(player);
+            break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
                 var _iteratorNormalCompletion = true;

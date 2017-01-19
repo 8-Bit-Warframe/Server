@@ -35,6 +35,13 @@ var Game = function () {
             this.probation[id] = player.uid != this.host.uid;
         }
     }, {
+        key: "confirmPlayer",
+        value: function confirmPlayer(player) {
+            this.probation[this.players.findIndex(function (p) {
+                return p.uid == player.uid;
+            })] = false;
+        }
+    }, {
         key: "removePlayer",
         value: function removePlayer(player) {
             this.players.splice(this.players.findIndex(function (p) {
