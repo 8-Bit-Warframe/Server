@@ -3,7 +3,8 @@ import Player from "./player";
 export default class Game {
     id: number;
     players: Array<Player> = [];
-    probation: Array<boolean> = [];
+    probation: Array<number> = [];
+    probationTimeout: Array<number> = [];
     host: Player = null;
 
     constructor(id: number) {
@@ -20,11 +21,17 @@ export default class Game {
         }
         const id = this.getAvailableId();
         this.players[id] = player;
-        this.probation[id] = player.uid != this.host.uid;
+        if (player.uid != this.host.uid) {
+            this.probation[id] = setTimeout(this.removePlayer(this.players[id]), 60000);
+            this.probationTimeout[id] = Date.now() + 60000;
+        }
     }
 
     confirmPlayer(player: Player) {
-        this.probation[this.players.findIndex(p => p.uid == player.uid)] = false;
+        const id = this.players.findIndex(p => p.uid == player.uid);
+        clearTimeout(this.probation[id]);
+        this.probation[id] = setTimeout(this.removePlayer(this.players[id]), 10000);
+        this.probationTimeout[id] = Date.now() + 10000;
     }
 
     removePlayer(player: Player) {

@@ -109,7 +109,11 @@ function printState() {
             log += "+-------+---------+---------------+\n";
             log += "|       |ip       |" + pad(player.ip, 15) + "|\n";
             log += "|       |port     |" + pad(player.port, 15) + "|\n";
-            log += "|       |probation|" + pad(game.probation[i], 15) + "|\n";
+            if (game.probation[i]) {
+                log += "|       |probation|0              |\n";
+            } else {
+                log += "|       |probation|" + pad((game.probationTimeout[i] - Date.now()) / 1000, 15) + "|\n";
+            }
         }
         log += "+-------+---------+---------------+\n";
         log += "|host   |ip       |" + pad(game.host.ip, 15) + "|\n";

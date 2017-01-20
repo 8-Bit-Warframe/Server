@@ -14,6 +14,7 @@ var Game = function () {
 
         this.players = [];
         this.probation = [];
+        this.probationTimeout = [];
         this.host = null;
         this.id = id;
     }
@@ -32,14 +33,20 @@ var Game = function () {
             }
             var id = this.getAvailableId();
             this.players[id] = player;
-            this.probation[id] = player.uid != this.host.uid;
+            if (player.uid != this.host.uid) {
+                this.probation[id] = setTimeout(this.removePlayer(this.players[id]), 60000);
+                this.probationTimeout[id] = Date.now() + 60000;
+            }
         }
     }, {
         key: "confirmPlayer",
         value: function confirmPlayer(player) {
-            this.probation[this.players.findIndex(function (p) {
+            var id = this.players.findIndex(function (p) {
                 return p.uid == player.uid;
-            })] = false;
+            });
+            clearTimeout(this.probation[id]);
+            this.probation[id] = setTimeout(this.removePlayer(this.players[id]), 10000);
+            this.probationTimeout[id] = Date.now() + 10000;
         }
     }, {
         key: "removePlayer",
