@@ -62,6 +62,9 @@ server.on("message", function (msg: string, info: AddressInfo) {
                 GameManager.destroyGame(game);
             } else {
                 game.removePlayer(player);
+                for (let player of game.getPlayers()) {
+                    sendMessage(JSON.stringify({message: PLAYER_LEAVE, player: player.getJson(false)}), player);
+                }
             }
             console.log("Player left game");
             printState();

@@ -1,8 +1,8 @@
 "use strict";
 
-var _player2 = require("./player");
+var _player3 = require("./player");
 
-var _player3 = _interopRequireDefault(_player2);
+var _player4 = _interopRequireDefault(_player3);
 
 var _gamemanager = require("./gamemanager");
 
@@ -33,7 +33,7 @@ var Message = function Message() {
 };
 
 server.on("message", function (msg, info) {
-    var player = _player3.default.fromAddressInfo(info);
+    var player = _player4.default.fromAddressInfo(info);
     var message = JSON.parse(msg);
     var game = null;
     if (message.gameId != null) {
@@ -91,6 +91,30 @@ server.on("message", function (msg, info) {
                 _gamemanager2.default.destroyGame(game);
             } else {
                 game.removePlayer(player);
+                var _iteratorNormalCompletion2 = true;
+                var _didIteratorError2 = false;
+                var _iteratorError2 = undefined;
+
+                try {
+                    for (var _iterator2 = game.getPlayers()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                        var _player2 = _step2.value;
+
+                        sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: _player2.getJson(false) }), _player2);
+                    }
+                } catch (err) {
+                    _didIteratorError2 = true;
+                    _iteratorError2 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                            _iterator2.return();
+                        }
+                    } finally {
+                        if (_didIteratorError2) {
+                            throw _iteratorError2;
+                        }
+                    }
+                }
             }
             console.log("Player left game");
             printState();
@@ -121,13 +145,13 @@ function sendMessage(message, player) {
     server.send(message, player.port, player.ip);
 }
 function printState() {
-    var _iteratorNormalCompletion2 = true;
-    var _didIteratorError2 = false;
-    var _iteratorError2 = undefined;
+    var _iteratorNormalCompletion3 = true;
+    var _didIteratorError3 = false;
+    var _iteratorError3 = undefined;
 
     try {
-        for (var _iterator2 = _gamemanager2.default.games[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-            var game = _step2.value;
+        for (var _iterator3 = _gamemanager2.default.games[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var game = _step3.value;
 
             var log = "\n";
             log += "+---------------------------------+\n";
@@ -155,16 +179,16 @@ function printState() {
             console.log(log);
         }
     } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
     } finally {
         try {
-            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                _iterator3.return();
             }
         } finally {
-            if (_didIteratorError2) {
-                throw _iteratorError2;
+            if (_didIteratorError3) {
+                throw _iteratorError3;
             }
         }
     }
