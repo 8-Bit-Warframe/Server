@@ -53,6 +53,9 @@ server.on("message", function (msg, info) {
         case GAME_JOIN:
             game.confirmPlayer(player);
             break;
+        case GAME_PING:
+            game.confirmPlayer(player);
+            break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
                 var _iteratorNormalCompletion = true;
@@ -91,8 +94,6 @@ server.on("message", function (msg, info) {
             }
             console.log("Player left game");
             printState();
-            break;
-        case GAME_PING:
             break;
         default:
             break;

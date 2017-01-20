@@ -46,6 +46,9 @@ server.on("message", function (msg: string, info: AddressInfo) {
         case GAME_JOIN:
             game.confirmPlayer(player);
             break;
+        case GAME_PING:
+            game.confirmPlayer(player);
+            break;
         case GAME_LEAVE:
             if (game.isHost(player)) {
                 for (let player of game.getPlayers()) {
@@ -62,8 +65,6 @@ server.on("message", function (msg: string, info: AddressInfo) {
             }
             console.log("Player left game");
             printState();
-            break;
-        case GAME_PING:
             break;
         default:
             break;
