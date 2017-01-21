@@ -22,11 +22,11 @@ var Player = function () {
         value: function getJson() {
             var host = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-            return JSON.stringify({
+            return {
                 ip: this.ip,
                 port: this.port,
                 host: host
-            });
+            };
         }
     }], [{
         key: "fromAddressInfo",

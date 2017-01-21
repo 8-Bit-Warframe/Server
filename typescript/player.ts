@@ -11,12 +11,12 @@ export default class Player {
         this.uid = ip + port;
     }
 
-    getJson(host: boolean = false): string {
-        return JSON.stringify({
+    getJson(host: boolean = false): Object {
+        return {
             ip: this.ip,
             port: this.port,
             host: host
-        });
+        };
     }
 
     static fromAddressInfo(info: AddressInfo): Player {
