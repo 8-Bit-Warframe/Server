@@ -51,10 +51,12 @@ class Server {
             }
             GameManager.destroyGame(game);
         } else {
-            game.removePlayer(player);
-            for (let player of game.getPlayers()) {
-                sendMessage(JSON.stringify({message: PLAYER_LEAVE, player: player.getJson(false)}), player);
+            for (let p of game.getPlayers()) {
+                if (p.uid != player.uid) {
+                    sendMessage(JSON.stringify({message: PLAYER_LEAVE, player: player.getJson(game.getPlayerId(player))}), player);
+                }
             }
+            game.removePlayer(player);
         }
     }
 }

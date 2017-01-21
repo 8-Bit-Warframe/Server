@@ -7,9 +7,9 @@ exports.Message = exports.Server = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _player3 = require("./player");
+var _player2 = require("./player");
 
-var _player4 = _interopRequireDefault(_player3);
+var _player3 = _interopRequireDefault(_player2);
 
 var _gamemanager = require("./gamemanager");
 
@@ -116,16 +116,17 @@ var Server = function () {
 
                 _gamemanager2.default.destroyGame(game);
             } else {
-                game.removePlayer(player);
                 var _iteratorNormalCompletion3 = true;
                 var _didIteratorError3 = false;
                 var _iteratorError3 = undefined;
 
                 try {
                     for (var _iterator3 = game.getPlayers()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                        var _player2 = _step3.value;
+                        var p = _step3.value;
 
-                        sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: _player2.getJson(false) }), _player2);
+                        if (p.uid != player.uid) {
+                            sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: player.getJson(game.getPlayerId(player)) }), player);
+                        }
                     }
                 } catch (err) {
                     _didIteratorError3 = true;
@@ -141,6 +142,8 @@ var Server = function () {
                         }
                     }
                 }
+
+                game.removePlayer(player);
             }
         }
     }]);
@@ -159,7 +162,7 @@ exports.Message = Message;
 
 server.on("message", function (msg, info) {
     var message = JSON.parse(msg);
-    var player = _player4.default.fromData(info, message);
+    var player = _player3.default.fromData(info, message);
     var game = null;
     if (message.gameId != null) {
         game = _gamemanager2.default.getGameById(message.gameId);
