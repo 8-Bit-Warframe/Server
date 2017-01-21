@@ -59,7 +59,7 @@ export default class Game {
         return this.players.find(p => player.uid == p.uid);
     }
 
-    getJson(): string {
+    getJson(): Object {
         const players = [];
         for (let i = 0; i < this.players.length; i++) {
             if (this.players[i] == null) {
@@ -68,9 +68,9 @@ export default class Game {
                 players[i] = this.players[i].getJson();
             }
         }
-        return JSON.stringify({
+        return {
             id: this.id,
             players: players
-        });
+        };
     }
 }

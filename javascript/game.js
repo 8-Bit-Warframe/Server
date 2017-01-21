@@ -96,10 +96,10 @@ var Game = function () {
                     players[i] = this.players[i].getJson();
                 }
             }
-            return JSON.stringify({
+            return {
                 id: this.id,
                 players: players
-            });
+            };
         }
     }]);
 
