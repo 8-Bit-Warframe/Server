@@ -1,8 +1,10 @@
 "use strict";
 
-var _player3 = require("./player");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _player4 = _interopRequireDefault(_player3);
+var _player4 = require("./player");
+
+var _player5 = _interopRequireDefault(_player4);
 
 var _gamemanager = require("./gamemanager");
 
@@ -32,8 +34,122 @@ var Message = function Message() {
     this.gameId = null;
 };
 
+var Server = function () {
+    function Server() {
+        _classCallCheck(this, Server);
+    }
+
+    _createClass(Server, null, [{
+        key: "addPlayer",
+        value: function addPlayer(game, player) {
+            var playerJoinMessage = {
+                message: PLAYER_JOIN,
+                player: player.getJson(),
+                playerId: game.getPlayerId(player)
+            };
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = game.players[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var _player = _step.value;
+
+                    sendMessage(JSON.stringify(playerJoinMessage), _player);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            game.addPlayer(player);
+            var gameJoinMessage = {
+                message: GAME_JOIN,
+                playerId: game.getPlayerId(player),
+                game: game.getJson()
+            };
+            sendMessage(JSON.stringify(gameJoinMessage), player);
+        }
+    }, {
+        key: "removePlayer",
+        value: function removePlayer(game, player) {
+            if (game.isHost(player)) {
+                var _iteratorNormalCompletion2 = true;
+                var _didIteratorError2 = false;
+                var _iteratorError2 = undefined;
+
+                try {
+                    for (var _iterator2 = game.getPlayers()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                        var _player2 = _step2.value;
+
+                        game.removePlayer(_player2);
+                        var message = {
+                            message: GAME_LEAVE,
+                            reason: "Host disconnected"
+                        };
+                        sendMessage(JSON.stringify(message), _player2);
+                    }
+                } catch (err) {
+                    _didIteratorError2 = true;
+                    _iteratorError2 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                            _iterator2.return();
+                        }
+                    } finally {
+                        if (_didIteratorError2) {
+                            throw _iteratorError2;
+                        }
+                    }
+                }
+
+                _gamemanager2.default.destroyGame(game);
+            } else {
+                game.removePlayer(player);
+                var _iteratorNormalCompletion3 = true;
+                var _didIteratorError3 = false;
+                var _iteratorError3 = undefined;
+
+                try {
+                    for (var _iterator3 = game.getPlayers()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                        var _player3 = _step3.value;
+
+                        sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: _player3.getJson(false) }), _player3);
+                    }
+                } catch (err) {
+                    _didIteratorError3 = true;
+                    _iteratorError3 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                            _iterator3.return();
+                        }
+                    } finally {
+                        if (_didIteratorError3) {
+                            throw _iteratorError3;
+                        }
+                    }
+                }
+            }
+        }
+    }]);
+
+    return Server;
+}();
+
 server.on("message", function (msg, info) {
-    var player = _player4.default.fromAddressInfo(info);
+    var player = _player5.default.fromAddressInfo(info);
     var message = JSON.parse(msg);
     var game = null;
     if (message.gameId != null) {
@@ -57,65 +173,7 @@ server.on("message", function (msg, info) {
             game.confirmPlayer(player);
             break;
         case GAME_LEAVE:
-            if (game.isHost(player)) {
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = game.getPlayers()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var _player = _step.value;
-
-                        game.removePlayer(_player);
-                        var _message = {
-                            message: GAME_LEAVE,
-                            reason: "Host disconnected"
-                        };
-                        sendMessage(JSON.stringify(_message), _player);
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator.return) {
-                            _iterator.return();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
-                    }
-                }
-
-                _gamemanager2.default.destroyGame(game);
-            } else {
-                game.removePlayer(player);
-                var _iteratorNormalCompletion2 = true;
-                var _didIteratorError2 = false;
-                var _iteratorError2 = undefined;
-
-                try {
-                    for (var _iterator2 = game.getPlayers()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                        var _player2 = _step2.value;
-
-                        sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: _player2.getJson(false) }), _player2);
-                    }
-                } catch (err) {
-                    _didIteratorError2 = true;
-                    _iteratorError2 = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                            _iterator2.return();
-                        }
-                    } finally {
-                        if (_didIteratorError2) {
-                            throw _iteratorError2;
-                        }
-                    }
-                }
-            }
+            Server.removePlayer(game, player);
             console.log("Player left game");
             printState();
             break;
@@ -127,31 +185,25 @@ server.bind(3000);
 function joinMatchmaking(player) {
     var game = _gamemanager2.default.findGame();
     if (game) {
-        game.addPlayer(player);
-        var message = {
-            message: GAME_JOIN,
-            playerId: game.getPlayerId(player),
-            game: game.getJson()
-        };
-        sendMessage(JSON.stringify(message), player);
+        Server.addPlayer(game, player);
     } else {
-        var _message2 = {
+        var message = {
             message: GAME_CREATE
         };
-        sendMessage(JSON.stringify(_message2), player);
+        sendMessage(JSON.stringify(message), player);
     }
 }
 function sendMessage(message, player) {
     server.send(message, player.port, player.ip);
 }
 function printState() {
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
+    var _iteratorNormalCompletion4 = true;
+    var _didIteratorError4 = false;
+    var _iteratorError4 = undefined;
 
     try {
-        for (var _iterator3 = _gamemanager2.default.games[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var game = _step3.value;
+        for (var _iterator4 = _gamemanager2.default.games[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            var game = _step4.value;
 
             var log = "\n";
             log += "+---------------------------------+\n";
@@ -179,16 +231,16 @@ function printState() {
             console.log(log);
         }
     } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
     } finally {
         try {
-            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                _iterator3.return();
+            if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                _iterator4.return();
             }
         } finally {
-            if (_didIteratorError3) {
-                throw _iteratorError3;
+            if (_didIteratorError4) {
+                throw _iteratorError4;
             }
         }
     }

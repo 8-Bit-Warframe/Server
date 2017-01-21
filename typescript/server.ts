@@ -24,6 +24,45 @@ class Message {
     gameId: number = null;
 }
 
+class Server {
+    static addPlayer(game: Game, player: Player) {
+        const playerJoinMessage = {
+            message: PLAYER_JOIN,
+            player: player.getJson(),
+            playerId: game.getPlayerId(player)
+        };
+        for (let player of game.players) {
+            sendMessage(JSON.stringify(playerJoinMessage), player);
+        }
+        game.addPlayer(player);
+        const gameJoinMessage = {
+            message: GAME_JOIN,
+            playerId: game.getPlayerId(player),
+            game: game.getJson()
+        };
+        sendMessage(JSON.stringify(gameJoinMessage), player);
+    }
+
+    static removePlayer(game: Game, player: Player) {
+        if (game.isHost(player)) {
+            for (let player of game.getPlayers()) {
+                game.removePlayer(player);
+                const message = {
+                    message: GAME_LEAVE,
+                    reason: "Host disconnected"
+                };
+                sendMessage(JSON.stringify(message), player);
+            }
+            GameManager.destroyGame(game);
+        } else {
+            game.removePlayer(player);
+            for (let player of game.getPlayers()) {
+                sendMessage(JSON.stringify({message: PLAYER_LEAVE, player: player.getJson(false)}), player);
+            }
+        }
+    }
+}
+
 server.on("message", function (msg: string, info: AddressInfo) {
     const player = Player.fromAddressInfo(info);
     const message = JSON.parse(msg) as Message;
@@ -50,22 +89,7 @@ server.on("message", function (msg: string, info: AddressInfo) {
             game.confirmPlayer(player);
             break;
         case GAME_LEAVE:
-            if (game.isHost(player)) {
-                for (let player of game.getPlayers()) {
-                    game.removePlayer(player);
-                    const message = {
-                        message: GAME_LEAVE,
-                        reason: "Host disconnected"
-                    };
-                    sendMessage(JSON.stringify(message), player);
-                }
-                GameManager.destroyGame(game);
-            } else {
-                game.removePlayer(player);
-                for (let player of game.getPlayers()) {
-                    sendMessage(JSON.stringify({message: PLAYER_LEAVE, player: player.getJson(false)}), player);
-                }
-            }
+            Server.removePlayer(game, player);
             console.log("Player left game");
             printState();
             break;
@@ -79,13 +103,7 @@ server.bind(3000);
 function joinMatchmaking(player: Player) {
     let game = GameManager.findGame();
     if (game) {
-        game.addPlayer(player);
-        const message = {
-            message: GAME_JOIN,
-            playerId: game.getPlayerId(player),
-            game: game.getJson()
-        };
-        sendMessage(JSON.stringify(message), player);
+        Server.addPlayer(game, player);
     } else {
         const message = {
             message: GAME_CREATE,
