@@ -1,4 +1,5 @@
 import Player from "./player";
+import Server from "./server";
 
 export default class Game {
     id: number;
@@ -22,7 +23,7 @@ export default class Game {
         const id = this.getAvailableId();
         this.players[id] = player;
         if (player.uid != this.host.uid) {
-            this.probation[id] = setTimeout(this.removePlayer(this.players[id]), 60000);
+            this.probation[id] = setTimeout(Server.removePlayer(this, this.players[id]), 60000);
             this.probationTimeout[id] = Date.now() + 60000;
         }
     }
@@ -30,7 +31,7 @@ export default class Game {
     confirmPlayer(player: Player) {
         const id = this.players.findIndex(p => p.uid == player.uid);
         clearTimeout(this.probation[id]);
-        this.probation[id] = setTimeout(this.removePlayer(this.players[id]), 10000);
+        this.probation[id] = setTimeout(Server.removePlayer(this, this.players[id]), 10000);
         this.probationTimeout[id] = Date.now() + 10000;
     }
 
