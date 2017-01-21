@@ -109,7 +109,7 @@ function joinMatchmaking(player: Player) {
         const game: Game = GameManager.createGame(player);
         const message = {
             message: GAME_CREATE,
-            gameId: game.id
+            game: game.getJson()
         };
         sendMessage(JSON.stringify(message), player);
     }

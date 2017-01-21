@@ -195,7 +195,7 @@ function joinMatchmaking(player) {
         var _game = _gamemanager2.default.createGame(player);
         var message = {
             message: GAME_CREATE,
-            gameId: _game.id
+            game: _game.getJson()
         };
         sendMessage(JSON.stringify(message), player);
     }
