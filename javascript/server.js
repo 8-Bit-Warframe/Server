@@ -164,12 +164,10 @@ server.on("message", function (msg, info) {
     switch (message.message) {
         case MATCHMAKING_JOIN:
             joinMatchmaking(player);
-            console.log("Player joined matchmaking");
             printState();
             break;
         case GAME_CREATE:
             _gamemanager2.default.createGame().addPlayer(player, true);
-            console.log("Game created");
             printState();
             break;
         case GAME_JOIN:
@@ -180,7 +178,6 @@ server.on("message", function (msg, info) {
             break;
         case GAME_LEAVE:
             Server.removePlayer(game, player);
-            console.log("Player left game");
             printState();
             break;
         default:
