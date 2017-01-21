@@ -65,7 +65,7 @@ export default class Game {
             if (this.players[i] == null) {
                 players[i] = null;
             } else {
-                players[i] = this.players[i].getJson();
+                players[i] = this.players[i].getJson(i);
             }
         }
         return {
