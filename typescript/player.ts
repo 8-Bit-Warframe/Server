@@ -16,12 +16,12 @@ export default class Player {
         this.uid = ip + udpPort + tcpPort;
     }
 
-    getJson(host: boolean = false): Object {
+    getJson(id: number): Object {
         return {
             ip: this.ip,
             udpPort: this.udpPort,
             tcpPort: this.tcpPort,
-            host: host
+            id: id
         };
     }
 

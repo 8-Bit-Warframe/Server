@@ -21,14 +21,12 @@ var Player = function () {
 
     _createClass(Player, [{
         key: "getJson",
-        value: function getJson() {
-            var host = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
+        value: function getJson(id) {
             return {
                 ip: this.ip,
                 udpPort: this.udpPort,
                 tcpPort: this.tcpPort,
-                host: host
+                id: id
             };
         }
     }], [{
