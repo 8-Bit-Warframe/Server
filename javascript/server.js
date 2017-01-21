@@ -167,7 +167,7 @@ server.on("message", function (msg, info) {
             printState();
             break;
         case GAME_CREATE:
-            _gamemanager2.default.createGame().addPlayer(player, true);
+            _gamemanager2.default.createGame(player);
             printState();
             break;
         case GAME_JOIN:
@@ -190,6 +190,7 @@ function joinMatchmaking(player) {
     if (game) {
         Server.addPlayer(game, player);
     } else {
+        var _game = _gamemanager2.default.createGame(player);
         var message = {
             message: GAME_CREATE
         };

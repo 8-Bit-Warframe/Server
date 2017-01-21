@@ -77,7 +77,7 @@ server.on("message", function (msg: string, info: AddressInfo) {
             printState();
             break;
         case GAME_CREATE:
-            GameManager.createGame().addPlayer(player, true);
+            GameManager.createGame(player);
             printState();
             break;
         case GAME_JOIN:
@@ -102,9 +102,9 @@ function joinMatchmaking(player: Player) {
     if (game) {
         Server.addPlayer(game, player);
     } else {
+        const game: Game = GameManager.createGame(player);
         const message = {
-            message: GAME_CREATE,
-
+            message: GAME_CREATE
         };
         sendMessage(JSON.stringify(message), player);
     }

@@ -21,15 +21,25 @@ var GameManager = function () {
 
     _createClass(GameManager, null, [{
         key: "createGame",
-        value: function createGame() {
+        value: function createGame(host) {
             var id = 0;
             while (GameManager.games.some(function (game) {
                 return game.id == id;
             })) {
                 id++;
             }
-            this.games[id] = new _game2.default(id);
-            return this.games[id];
+            GameManager.games[id] = new _game2.default(id);
+            GameManager.games[id].addPlayer(host, true);
+            GameManager.probation[id] = setTimeout(function () {}, 60000);
+            GameManager.probationTimeout[id] = Date.now() + 60000;
+            return GameManager.games[id];
+        }
+    }, {
+        key: "confirmGame",
+        value: function confirmGame(gameId) {
+            clearTimeout(GameManager.probation[gameId]);
+            GameManager.probation[gameId] = null;
+            GameManager.probationTimeout[gameId] = 0;
         }
     }, {
         key: "findGame",
@@ -61,3 +71,5 @@ exports.default = GameManager;
 
 GameManager.MAX_PLAYERS = 2;
 GameManager.games = [];
+GameManager.probation = [];
+GameManager.probationTimeout = [];

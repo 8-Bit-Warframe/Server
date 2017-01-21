@@ -1,17 +1,30 @@
 import Game from "./game";
+import Player from "./player";
+import Timer = NodeJS.Timer;
 
 export default class GameManager {
     static MAX_PLAYERS: number = 2;
 
     static games: Array<Game> = [];
+    static probation: Array<Timer> = [];
+    static probationTimeout: Array<number> = [];
 
-    static createGame(): Game {
+    static createGame(host: Player): Game {
         let id = 0;
         while (GameManager.games.some(game => game.id == id)) {
             id++;
         }
-        this.games[id] = new Game(id);
-        return this.games[id];
+        GameManager.games[id] = new Game(id);
+        GameManager.games[id].addPlayer(host, true);
+        GameManager.probation[id] = setTimeout(function () {}, 60000);
+        GameManager.probationTimeout[id] = Date.now() + 60000;
+        return GameManager.games[id];
+    }
+
+    static confirmGame(gameId: number) {
+        clearTimeout(GameManager.probation[gameId]);
+        GameManager.probation[gameId] = null;
+        GameManager.probationTimeout[gameId] = 0;
     }
 
     static findGame(): Game {
