@@ -1,5 +1,5 @@
 import Player from "./player";
-import Server from "./server";
+import {Server} from "./server";
 
 export default class Game {
     id: number;

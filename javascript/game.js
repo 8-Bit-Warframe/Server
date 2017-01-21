@@ -8,10 +8,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _server = require("./server");
 
-var _server2 = _interopRequireDefault(_server);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Game = function () {
@@ -40,7 +36,7 @@ var Game = function () {
             var id = this.getAvailableId();
             this.players[id] = player;
             if (player.uid != this.host.uid) {
-                this.probation[id] = setTimeout(_server2.default.removePlayer(this, this.players[id]), 60000);
+                this.probation[id] = setTimeout(_server.Server.removePlayer(this, this.players[id]), 60000);
                 this.probationTimeout[id] = Date.now() + 60000;
             }
         }
@@ -51,7 +47,7 @@ var Game = function () {
                 return p.uid == player.uid;
             });
             clearTimeout(this.probation[id]);
-            this.probation[id] = setTimeout(_server2.default.removePlayer(this, this.players[id]), 10000);
+            this.probation[id] = setTimeout(_server.Server.removePlayer(this, this.players[id]), 10000);
             this.probationTimeout[id] = Date.now() + 10000;
         }
     }, {
