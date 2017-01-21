@@ -24,7 +24,7 @@ class Message {
     gameId: number = null;
 }
 
-class Server {
+export default class Server {
     static addPlayer(game: Game, player: Player) {
         const playerJoinMessage = {
             message: PLAYER_JOIN,
