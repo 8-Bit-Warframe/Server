@@ -55,8 +55,8 @@ export default class Game {
         return this.players.filter(player => player != null);
     }
 
-    getPlayerId(player: Player) {
-        return this.players.find(p => player.uid == p.uid);
+    getPlayerId(player: Player): number {
+        return this.players.findIndex(p => player.uid == p.uid);
     }
 
     getJson(): Object {

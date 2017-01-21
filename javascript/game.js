@@ -81,7 +81,7 @@ var Game = function () {
     }, {
         key: "getPlayerId",
         value: function getPlayerId(player) {
-            return this.players.find(function (p) {
+            return this.players.findIndex(function (p) {
                 return player.uid == p.uid;
             });
         }
