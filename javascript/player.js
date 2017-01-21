@@ -9,12 +9,14 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Player = function () {
-    function Player(ip, port) {
+    function Player(ip, matchmakingPort, udpPort, tcpPort) {
         _classCallCheck(this, Player);
 
         this.ip = ip;
-        this.port = port;
-        this.uid = ip + port;
+        this.matchmakingPort = matchmakingPort;
+        this.udpPort = udpPort;
+        this.tcpPort = tcpPort;
+        this.uid = ip + udpPort + tcpPort;
     }
 
     _createClass(Player, [{
@@ -24,14 +26,15 @@ var Player = function () {
 
             return {
                 ip: this.ip,
-                port: this.port,
+                udpPort: this.udpPort,
+                tcpPort: this.tcpPort,
                 host: host
             };
         }
     }], [{
-        key: "fromAddressInfo",
-        value: function fromAddressInfo(info) {
-            return new Player(info.address, info.port);
+        key: "fromData",
+        value: function fromData(info, message) {
+            return new Player(info.address, info.port, message.udpPort, message.tcpPort);
         }
     }]);
 

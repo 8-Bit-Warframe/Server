@@ -1,25 +1,31 @@
 import {AddressInfo} from "dgram";
+import {Message} from "./server";
 
 export default class Player {
     ip: string;
-    port: number;
+    matchmakingPort:number;
+    udpPort: number;
+    tcpPort: number;
     uid: string;
 
-    constructor(ip: string, port: number) {
+    constructor(ip: string, matchmakingPort: number, udpPort: number, tcpPort: number) {
         this.ip = ip;
-        this.port = port;
-        this.uid = ip + port;
+        this.matchmakingPort = matchmakingPort;
+        this.udpPort = udpPort;
+        this.tcpPort = tcpPort;
+        this.uid = ip + udpPort + tcpPort;
     }
 
     getJson(host: boolean = false): Object {
         return {
             ip: this.ip,
-            port: this.port,
+            udpPort: this.udpPort,
+            tcpPort: this.tcpPort,
             host: host
         };
     }
 
-    static fromAddressInfo(info: AddressInfo): Player {
-        return new Player(info.address, info.port);
+    static fromData(info: AddressInfo, message: Message): Player {
+        return new Player(info.address, info.port, message.udpPort, message.tcpPort);
     }
 }

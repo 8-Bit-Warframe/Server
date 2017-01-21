@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.Message = exports.Server = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -31,12 +32,6 @@ var GAME_PING = "game_ping";
 var GAME_LEAVE = "game_leave";
 var PLAYER_JOIN = "player_join";
 var PLAYER_LEAVE = "player_leave";
-
-var Message = function Message() {
-    _classCallCheck(this, Message);
-
-    this.gameId = null;
-};
 
 var Server = function () {
     function Server() {
@@ -152,11 +147,18 @@ var Server = function () {
     return Server;
 }();
 
-exports.default = Server;
+var Message = function Message() {
+    _classCallCheck(this, Message);
+
+    this.gameId = null;
+};
+
+exports.Server = Server;
+exports.Message = Message;
 
 server.on("message", function (msg, info) {
-    var player = _player5.default.fromAddressInfo(info);
     var message = JSON.parse(msg);
+    var player = _player5.default.fromData(info, message);
     var game = null;
     if (message.gameId != null) {
         game = _gamemanager2.default.getGameById(message.gameId);
@@ -199,7 +201,7 @@ function joinMatchmaking(player) {
     }
 }
 function sendMessage(message, player) {
-    server.send(message, player.port, player.ip);
+    server.send(message, player.matchmakingPort, player.ip);
 }
 function printState() {
     var _iteratorNormalCompletion4 = true;
@@ -221,7 +223,9 @@ function printState() {
                 var player = game.players[i];
                 log += "+-------+---------+---------------+\n";
                 log += "|       |ip       |" + pad(player.ip, 15) + "|\n";
-                log += "|       |port     |" + pad(player.port, 15) + "|\n";
+                log += "|       |UDP port |" + pad(player.udpPort, 15) + "|\n";
+                log += "|       |TCP port |" + pad(player.tcpPort, 15) + "|\n";
+                log += "|       |MM port  |" + pad(player.matchmakingPort, 15) + "|\n";
                 if (game.probation[i]) {
                     log += "|       |probation|0              |\n";
                 } else {
@@ -230,7 +234,9 @@ function printState() {
             }
             log += "+-------+---------+---------------+\n";
             log += "|host   |ip       |" + pad(game.host.ip, 15) + "|\n";
-            log += "|       |port     |" + pad(game.host.port, 15) + "|\n";
+            log += "|       |UDP port |" + pad(game.host.udpPort, 15) + "|\n";
+            log += "|       |TCP port |" + pad(game.host.tcpPort, 15) + "|\n";
+            log += "|       |MM port  |" + pad(game.host.matchmakingPort, 15) + "|\n";
             log += "+-------+---------+---------------+\n";
             log += "\n";
             console.log(log);

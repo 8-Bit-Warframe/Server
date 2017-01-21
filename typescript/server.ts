@@ -19,12 +19,7 @@ const GAME_LEAVE: string = "game_leave";
 const PLAYER_JOIN: string = "player_join";
 const PLAYER_LEAVE: string = "player_leave";
 
-class Message {
-    message: string;
-    gameId: number = null;
-}
-
-export default class Server {
+class Server {
     static addPlayer(game: Game, player: Player) {
         const playerJoinMessage = {
             message: PLAYER_JOIN,
@@ -63,9 +58,18 @@ export default class Server {
     }
 }
 
+class Message {
+    udpPort: number;
+    tcpPort: number;
+    message: string;
+    gameId: number = null;
+}
+
+export {Server, Message};
+
 server.on("message", function (msg: string, info: AddressInfo) {
-    const player = Player.fromAddressInfo(info);
     const message = JSON.parse(msg) as Message;
+    const player = Player.fromData(info, message);
 
     let game: Game = null;
     if (message.gameId != null) {
@@ -112,7 +116,7 @@ function joinMatchmaking(player: Player) {
 }
 
 function sendMessage(message: string, player: Player) {
-    server.send(message, player.port, player.ip);
+    server.send(message, player.matchmakingPort, player.ip);
 }
 
 function printState() {
@@ -128,7 +132,9 @@ function printState() {
             let player = game.players[i];
             log += "+-------+---------+---------------+\n";
             log += "|       |ip       |" + pad(player.ip, 15) + "|\n";
-            log += "|       |port     |" + pad(player.port, 15) + "|\n";
+            log += "|       |UDP port |" + pad(player.udpPort, 15) + "|\n";
+            log += "|       |TCP port |" + pad(player.tcpPort, 15) + "|\n";
+            log += "|       |MM port  |" + pad(player.matchmakingPort, 15) + "|\n";
             if (game.probation[i]) {
                 log += "|       |probation|0              |\n";
             } else {
@@ -137,7 +143,9 @@ function printState() {
         }
         log += "+-------+---------+---------------+\n";
         log += "|host   |ip       |" + pad(game.host.ip, 15) + "|\n";
-        log += "|       |port     |" + pad(game.host.port, 15) + "|\n";
+        log += "|       |UDP port |" + pad(game.host.udpPort, 15) + "|\n";
+        log += "|       |TCP port |" + pad(game.host.tcpPort, 15) + "|\n";
+        log += "|       |MM port  |" + pad(game.host.matchmakingPort, 15) + "|\n";
         log += "+-------+---------+---------------+\n";
         log += "\n";
         console.log(log);
