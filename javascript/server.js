@@ -7,9 +7,9 @@ exports.Message = exports.Server = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _player4 = require("./player");
+var _player3 = require("./player");
 
-var _player5 = _interopRequireDefault(_player4);
+var _player4 = _interopRequireDefault(_player3);
 
 var _gamemanager = require("./gamemanager");
 
@@ -41,10 +41,10 @@ var Server = function () {
     _createClass(Server, null, [{
         key: "addPlayer",
         value: function addPlayer(game, player) {
+            game.addPlayer(player);
             var playerJoinMessage = {
                 message: PLAYER_JOIN,
-                player: player.getJson(),
-                playerId: game.getPlayerId(player)
+                player: player.getJson(game.getPlayerId(player))
             };
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
@@ -52,9 +52,11 @@ var Server = function () {
 
             try {
                 for (var _iterator = game.players[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var _player = _step.value;
+                    var p = _step.value;
 
-                    sendMessage(JSON.stringify(playerJoinMessage), _player);
+                    if (p.uid != player.uid) {
+                        sendMessage(JSON.stringify(playerJoinMessage), p);
+                    }
                 }
             } catch (err) {
                 _didIteratorError = true;
@@ -71,7 +73,6 @@ var Server = function () {
                 }
             }
 
-            game.addPlayer(player);
             var gameJoinMessage = {
                 message: GAME_JOIN,
                 playerId: game.getPlayerId(player),
@@ -89,14 +90,14 @@ var Server = function () {
 
                 try {
                     for (var _iterator2 = game.getPlayers()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                        var _player2 = _step2.value;
+                        var _player = _step2.value;
 
-                        game.removePlayer(_player2);
+                        game.removePlayer(_player);
                         var message = {
                             message: GAME_LEAVE,
                             reason: "Host disconnected"
                         };
-                        sendMessage(JSON.stringify(message), _player2);
+                        sendMessage(JSON.stringify(message), _player);
                     }
                 } catch (err) {
                     _didIteratorError2 = true;
@@ -122,9 +123,9 @@ var Server = function () {
 
                 try {
                     for (var _iterator3 = game.getPlayers()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                        var _player3 = _step3.value;
+                        var _player2 = _step3.value;
 
-                        sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: _player3.getJson(false) }), _player3);
+                        sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: _player2.getJson(false) }), _player2);
                     }
                 } catch (err) {
                     _didIteratorError3 = true;
@@ -158,7 +159,7 @@ exports.Message = Message;
 
 server.on("message", function (msg, info) {
     var message = JSON.parse(msg);
-    var player = _player5.default.fromData(info, message);
+    var player = _player4.default.fromData(info, message);
     var game = null;
     if (message.gameId != null) {
         game = _gamemanager2.default.getGameById(message.gameId);

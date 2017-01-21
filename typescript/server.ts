@@ -21,15 +21,16 @@ const PLAYER_LEAVE: string = "player_leave";
 
 class Server {
     static addPlayer(game: Game, player: Player) {
+        game.addPlayer(player);
         const playerJoinMessage = {
             message: PLAYER_JOIN,
-            player: player.getJson(),
-            playerId: game.getPlayerId(player)
+            player: player.getJson(game.getPlayerId(player))
         };
-        for (let player of game.players) {
-            sendMessage(JSON.stringify(playerJoinMessage), player);
+        for (let p of game.players) {
+            if (p.uid != player.uid) {
+                sendMessage(JSON.stringify(playerJoinMessage), p);
+            }
         }
-        game.addPlayer(player);
         const gameJoinMessage = {
             message: GAME_JOIN,
             playerId: game.getPlayerId(player),
