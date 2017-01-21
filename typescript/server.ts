@@ -104,7 +104,8 @@ function joinMatchmaking(player: Player) {
     } else {
         const game: Game = GameManager.createGame(player);
         const message = {
-            message: GAME_CREATE
+            message: GAME_CREATE,
+            gameId: game.id
         };
         sendMessage(JSON.stringify(message), player);
     }
