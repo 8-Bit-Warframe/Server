@@ -124,7 +124,7 @@ function sendMessage(message: string, player: Player) {
 
 function printState() {
     for (let game of GameManager.games) {
-        let log = "\n";
+        let log = "\nCurrent state:\n";
         log += "+---------------------------------+\n";
         log += "|Game                             |\n";
         log += "+-------+-------------------------+\n";
