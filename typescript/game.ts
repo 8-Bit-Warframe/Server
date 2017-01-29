@@ -32,7 +32,7 @@ export default class Game {
     confirmPlayer(player: Player) {
         const id = this.players.findIndex(p => p.uid == player.uid);
         clearTimeout(this.probation[id]);
-        this.probation[id] = setTimeout(function(){Server.removePlayer(this, this.players[id])}, 10000);
+        this.probation[id] = setTimeout(function(){Server.removePlayer(this, player)}, 10000);
         this.probationTimeout[id] = Date.now() + 10000;
     }
 

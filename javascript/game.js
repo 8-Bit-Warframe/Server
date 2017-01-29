@@ -50,7 +50,7 @@ var Game = function () {
             });
             clearTimeout(this.probation[id]);
             this.probation[id] = setTimeout(function () {
-                _server.Server.removePlayer(this, this.players[id]);
+                _server.Server.removePlayer(this, player);
             }, 10000);
             this.probationTimeout[id] = Date.now() + 10000;
         }
