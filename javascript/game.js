@@ -25,8 +25,9 @@ class Game {
         const id = this.getAvailableId();
         this.players[id] = player;
         if (player.uid != this.host.uid) {
+            const game = this;
             this.probation[id] = setTimeout(function () {
-                _server.Server.removePlayer(this, this.players[id]);
+                _server.Server.removePlayer(game, this.players[id]);
             }, 60000);
             this.probationTimeout[id] = Date.now() + 60000;
         }
@@ -34,8 +35,9 @@ class Game {
     confirmPlayer(player) {
         const id = this.players.findIndex(p => p.uid == player.uid);
         clearTimeout(this.probation[id]);
+        const game = this;
         this.probation[id] = setTimeout(function () {
-            _server.Server.removePlayer(this, player);
+            _server.Server.removePlayer(game, player);
         }, 10000);
         this.probationTimeout[id] = Date.now() + 10000;
     }

@@ -24,7 +24,8 @@ export default class Game {
         const id = this.getAvailableId();
         this.players[id] = player;
         if (player.uid != this.host.uid) {
-            this.probation[id] = setTimeout(function(){Server.removePlayer(this, this.players[id])}, 60000);
+            const game = this;
+            this.probation[id] = setTimeout(function(){Server.removePlayer(game, this.players[id])}, 60000);
             this.probationTimeout[id] = Date.now() + 60000;
         }
     }
@@ -32,7 +33,8 @@ export default class Game {
     confirmPlayer(player: Player) {
         const id = this.players.findIndex(p => p.uid == player.uid);
         clearTimeout(this.probation[id]);
-        this.probation[id] = setTimeout(function(){Server.removePlayer(this, player)}, 10000);
+        const game = this;
+        this.probation[id] = setTimeout(function(){Server.removePlayer(game, player)}, 10000);
         this.probationTimeout[id] = Date.now() + 10000;
     }
 
