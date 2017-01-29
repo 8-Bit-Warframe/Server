@@ -208,6 +208,7 @@ function sendMessage(message, player) {
     server.send(message, player.matchmakingPort, player.ip);
 }
 function printState() {
+    console.log("Current state:");
     var _iteratorNormalCompletion4 = true;
     var _didIteratorError4 = false;
     var _iteratorError4 = undefined;
@@ -216,7 +217,7 @@ function printState() {
         for (var _iterator4 = _gamemanager2.default.games[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
             var game = _step4.value;
 
-            var log = "\nCurrent state:\n";
+            var log = "\n";
             log += "+---------------------------------+\n";
             log += "|Game                             |\n";
             log += "+-------+-------------------------+\n";
