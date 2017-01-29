@@ -89,7 +89,7 @@ server.on("message", function (msg, info) {
             printState();
             break;
         case GAME_CREATE:
-            _gamemanager2.default.createGame(player);
+            _gamemanager2.default.confirmGame(game.id);
             printState();
             break;
         case GAME_JOIN:

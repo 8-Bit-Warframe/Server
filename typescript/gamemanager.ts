@@ -14,9 +14,10 @@ export default class GameManager {
         while (GameManager.games.some(game => game.id == id)) {
             id++;
         }
-        GameManager.games[id] = new Game(id);
+        const game: Game = new Game(id);
+        GameManager.games[id] = game;
         GameManager.games[id].addPlayer(host, true);
-        GameManager.probation[id] = setTimeout(function () {}, 60000);
+        GameManager.probation[id] = setTimeout(function () {GameManager.destroyGame(game)}, 60000);
         GameManager.probationTimeout[id] = Date.now() + 60000;
         return GameManager.games[id];
     }

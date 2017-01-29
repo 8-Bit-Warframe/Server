@@ -84,7 +84,7 @@ server.on("message", function (msg: string, info: AddressInfo) {
             printState();
             break;
         case GAME_CREATE:
-            GameManager.createGame(player);
+            GameManager.confirmGame(game.id);
             printState();
             break;
         case GAME_JOIN:
