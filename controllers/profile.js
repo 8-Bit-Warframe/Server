@@ -8,7 +8,7 @@ module.exports.profileRead = function(req, res) {
 		});
 	} else {
 		res.status(401).json({
-			"message": "Unauthorised"
+			'message': 'Unauthorised'
 		});
 	}
 };
