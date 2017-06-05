@@ -16,7 +16,7 @@ import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-
         BrowserModule,
         RouterModule.forRoot([
             {
-                path: '/',
+                path: '',
                 component: HomeComponent
             }
         ])
