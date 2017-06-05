@@ -52,7 +52,6 @@ export class ImageCarouselComponent {
     ];
 
     ngOnInit() {
-        console.log(this.direction);
         this.createInterval();
         ImageCarouselComponent.runBlazy();
     }
