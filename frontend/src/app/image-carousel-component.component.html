@@ -1,0 +1,94 @@
+<style>
+	.image-card{
+		position: absolute;
+		width: 50vw;
+		height: calc(50vw * (1080 / 1920));
+		background-position: center;
+		background-size: cover;
+		transform: translate(-50%, 0);
+		transition: all 300ms;
+		cursor: pointer;
+	}
+
+	.image-card > .loading{
+		width:100%;
+		height:100%;
+		background: url('assets/images/frost-run.gif') no-repeat center;
+		background-size: 20%;
+		image-rendering: optimizeSpeed;
+		image-rendering: -moz-crisp-edges;
+		image-rendering: -o-crisp-edges;
+		image-rendering: -webkit-optimize-contrast;
+		image-rendering: pixelated;
+		image-rendering: optimize-contrast;
+		-ms-interpolation-mode: nearest-neighbor;
+	}
+
+	.image-card > .mdl-card__actions{
+		position: absolute;
+		bottom: 0;
+		height: 52px;
+		padding: 16px;
+		background: rgba(0, 0, 0, 0.6);
+	}
+
+	.image-card > .mdl-card__actions > span{
+		color: #fff;
+		font-size: 14px;
+		font-weight: 500;
+	}
+
+	.image-card.far-left{
+		left: -50vw;
+		top: calc(5vw * 0.5625);
+		width: 30vw;
+		height: calc(40vw * 0.5625);
+	}
+
+	.image-card.left{
+		left: 0;
+		top: calc(5vw * 0.5625);
+		width: 30vw;
+		height: calc(40vw * 0.5625);
+	}
+
+	.image-card.current{
+		left: 50vw;
+		top: 0;
+		width: 50vw;
+		height: calc(50vw * 0.5625);
+	}
+
+	.image-card.right{
+		left: 100vw;
+		top: calc(5vw * 0.5625);
+		width: 30vw;
+		height: calc(40vw * 0.5625);
+
+	}
+
+	.image-card.far-right{
+		left: 150vw;
+		top: calc(5vw * 0.5625);
+		width: 30vw;
+		height: calc(40vw * 0.5625);
+
+	}
+</style>
+<div *ngFor="let image of images; let i = index">
+	<!--<div class="image-card mdl-card mdl-shadow&#45;&#45;2dp {{i < current - 1 ? 'far-left' : (i > current + 1 ? 'far-right' : (i < current ? 'left' : (i > current ? 'right' : 'current')))}}"
+		 [style.background]="'url(' + image.url + ')'"
+		 (click)="onSelect(image)">
+		<div class="mdl-card__actions">
+			<span>{{image.caption}}</span>
+		</div>
+	</div>-->
+	<div class="image-card mdl-card mdl-shadow--2dp b-lazy {{i < current - 1 ? 'far-left' : (i > current + 1 ? 'far-right' : (i < current ? 'left' : (i > current ? 'right' : 'current')))}}"
+		 [attr.data-blazy]="image.url"
+		 (click)="onSelect(image)">
+		<div class="loading"></div>
+		<div class="mdl-card__actions">
+			<span>{{image.caption}}</span>
+		</div>
+	</div>
+</div>
