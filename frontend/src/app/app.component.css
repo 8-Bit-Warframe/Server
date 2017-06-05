@@ -1,0 +1,13 @@
+.layout-transparent{
+    background: #111;
+    color: white
+}
+
+.mdl-navigation__link{
+    color: white;
+    font-weight: bold;
+}
+
+.layout-transparent /deep/ .mdl-layout__drawer-button {
+    color: white;
+}
