@@ -4,7 +4,7 @@ import {RouterModule} from "@angular/router";
 
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home-component/home-component";
-import {ImageCarouselComponent} from "./image-carousel/image-carousel-component";
+import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-component";
 
 @NgModule({
     declarations: [
