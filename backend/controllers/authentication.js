@@ -7,10 +7,19 @@ const sendJsonResponse = function(res, status, content) {
 };
 
 module.exports.register = function(req, res) {
+	if (!req.body.rAlias || !req.body.rEmail || !req.body.rPassword || !req.body.rConfirmPassword) {
+		sendJsonResponse(res, 422, {message: 'All fields must be filled in'});
+		return;
+	}
+	if (req.body.rPassword !== req.body.rConfirmPassword) {
+		sendJsonResponse(res, 422, {message: 'Passwords must match'});
+		return;
+	}
+
 	const user = new User();
 
-	user.alias = req.body.alias;
-	user.email = req.body.email;
+	user.alias = req.body.rAlias;
+	user.email = req.body.rEmail;
 	user.setPassword(req.body.password);
 
 	user.save(function() {
