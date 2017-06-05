@@ -12,7 +12,7 @@
 .image-card > .loading{
     width: 100%;
     height: 100%;
-    background: url('../assets/images/frost-run.gif') no-repeat center;
+    background: url('../../assets/images/frost-run.gif') no-repeat center;
     background-size: 20%;
     image-rendering: optimizeSpeed;
     image-rendering: -moz-crisp-edges;
