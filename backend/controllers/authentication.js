@@ -9,7 +9,7 @@ const sendJsonResponse = function(res, status, content) {
 module.exports.register = function(req, res) {
 	const user = new User();
 
-	user.name = req.body.name;
+	user.alias = req.body.alias;
 	user.email = req.body.email;
 	user.setPassword(req.body.password);
 
