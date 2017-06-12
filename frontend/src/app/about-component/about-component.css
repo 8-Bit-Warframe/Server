@@ -1,0 +1,20 @@
+div.centre{
+    position: absolute;
+    left: 50%;
+    width: 800px;
+    transform: translate(-50%, 0);
+}
+
+h1, h2{
+    text-align: center;
+}
+
+h2{
+    font-size: 30px;
+}
+
+div.centre img{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
