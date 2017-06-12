@@ -39,16 +39,10 @@
 
 .image-card.far-left{
     left: -50vw;
-    top: calc(5vw * 0.5625);
-    width: 30vw;
-    height: calc(40vw * 0.5625);
 }
 
 .image-card.left{
     left: 0;
-    top: calc(5vw * 0.5625);
-    width: 30vw;
-    height: calc(40vw * 0.5625);
 }
 
 .image-card.current{
@@ -60,16 +54,16 @@
 
 .image-card.right{
     left: 100vw;
-    top: calc(5vw * 0.5625);
-    width: 30vw;
-    height: calc(40vw * 0.5625);
 
 }
 
 .image-card.far-right{
     left: 150vw;
+
+}
+
+.image-card.far-left, .image-card.left, .image-card.right, .image-card.far-right{
     top: calc(5vw * 0.5625);
     width: 30vw;
     height: calc(40vw * 0.5625);
-
 }
