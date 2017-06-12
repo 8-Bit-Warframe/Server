@@ -13,8 +13,25 @@ h2{
     font-size: 30px;
 }
 
-div.centre img{
+div.centre div.concept{
     position: relative;
     left: 50%;
+    width: 550px;
+    height: 500px;
     transform: translate(-50%, 0);
+    background: url("../../assets/images/concept.gif");
+}
+
+.image-card > .mdl-card__actions{
+    position: absolute;
+    bottom: 0;
+    height: 52px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.image-card > .mdl-card__actions > span{
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
 }
