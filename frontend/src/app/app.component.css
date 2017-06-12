@@ -11,3 +11,17 @@
 .layout-transparent /deep/ .mdl-layout__drawer-button {
     color: white;
 }
+
+img.logo-mobile{
+    display: none;
+}
+
+@media screen and (max-width: 1024px){
+    img.logo-mobile{
+        display: block;
+        position: relative;
+        left: 48px;
+        height: 48px;
+        margin: 4px;
+    }
+}
