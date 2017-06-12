@@ -4,6 +4,7 @@ import {RouterModule} from "@angular/router";
 
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home-component/home-component";
+import {AboutComponent} from "./about-component/about-component";
 import {AuthComponent} from "./auth-component/auth-component";
 import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-component";
 
@@ -11,6 +12,7 @@ import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-
     declarations: [
         AppComponent,
         HomeComponent,
+        AboutComponent,
         AuthComponent,
         ImageCarouselComponent
     ],
@@ -20,6 +22,10 @@ import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-
             {
                 path: '',
                 component: HomeComponent
+            },
+            {
+                path: 'about',
+                component: AboutComponent
             },
             {
                 path: 'auth',
