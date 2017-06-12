@@ -78,7 +78,7 @@ export class ImageCarouselComponent {
     private static runBlazy() {
         new Blazy({
             src: 'data-blazy',
-            offset: 0,
+            offset: 1000,
             success: function(e: Element) {
                 e.removeChild(e.childNodes[1]);
             }
