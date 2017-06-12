@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
 
+declare const componentHandler: any;
+
 @Component({
     selector: 'auth',
     templateUrl: './auth-component.html',
@@ -19,5 +21,8 @@ export class AuthComponent {
             document.getElementById("login").classList.add("is-active");
             document.getElementById("loginTab").classList.add("is-active");
         }
+    }
+    ngAfterViewInit() {
+        componentHandler.upgradeAllRegistered();
     }
 }
