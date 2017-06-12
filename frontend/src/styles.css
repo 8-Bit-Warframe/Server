@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+h1, h2{
+    text-align: center;
+}
+
+h2{
+    font-size: 30px;
+}
+
+@media screen and (max-width: 1024px){
+    h1{
+        margin-top: 0;
+    }
+}
