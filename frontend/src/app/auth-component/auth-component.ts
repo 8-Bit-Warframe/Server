@@ -5,7 +5,7 @@ declare const componentHandler: any;
 @Component({
     selector: 'auth',
     templateUrl: './auth-component.html',
-    styleUrls: ['./auth-component.css']
+    styleUrls: ['./auth-component.scss']
 })
 
 export class AuthComponent {
