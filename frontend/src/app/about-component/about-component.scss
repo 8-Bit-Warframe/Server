@@ -1,21 +1,10 @@
-div.centre{
-    position: absolute;
+div.concept{
+    position: relative;
     left: 50%;
-    width: 800px;
+    width: 550px;
+    height: 500px;
     transform: translate(-50%, 0);
-
-    & div.concept{
-        position: relative;
-        left: 50%;
-        width: 550px;
-        height: 500px;
-        transform: translate(-50%, 0);
-        background: url("../../assets/images/concept.gif");
-    }
-}
-
-div.responsive{
-    width: 800px;
+    background: url("../../assets/images/concept.gif");
 }
 
 .image-card{
@@ -35,12 +24,7 @@ div.responsive{
 }
 
 @media screen and (max-width: 1024px){
-    div.responsive{
-        padding: 4vw;
-        width: 92vw;
-    }
-
-    div.centre div.concept{
+    div.concept{
         width: 100%;
         height: 83.63vw;
         background-size: cover;
