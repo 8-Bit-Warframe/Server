@@ -17,11 +17,15 @@ div.responsive{
     width: 800px;
 }
 
+div.responsive-wide{
+    width: 1200px;
+}
+
 @media screen and (max-width: 1024px){
     h1{
         margin-top: 0;
     }
-    div.responsive{
+    div.responsive, div.responsive-wide{
         padding: 4vw;
         width: 92vw;
     }
