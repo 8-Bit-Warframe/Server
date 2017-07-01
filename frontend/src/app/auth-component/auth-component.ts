@@ -9,6 +9,11 @@ declare const componentHandler: any;
 })
 
 export class AuthComponent {
+    alias: string = "";
+    email: string = "";
+    password: string = "";
+    password2: string = "";
+
     selectTab(id: number): void {
         if (id == 0) {
             document.getElementById("login").classList.remove("is-active");
@@ -24,5 +29,11 @@ export class AuthComponent {
     }
     ngAfterViewInit() {
         componentHandler.upgradeAllRegistered();
+    }
+    register() {
+        console.log(this.alias + ", " + this.email + ", " + this.password + ", " + this.password2);
+    }
+    login() {
+        console.log(this.email + ", " + this.password);
     }
 }

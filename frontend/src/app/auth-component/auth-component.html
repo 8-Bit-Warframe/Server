@@ -7,22 +7,22 @@
 		<div class="mdl-tabs__panel is-active" id="register">
 			<form>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label login-register-field">
-					<input class="mdl-textfield__input" type="text" id="r-alias" name="alias">
+					<input class="mdl-textfield__input" type="text" id="r-alias" name="alias" [(ngModel)]="alias">
 					<label class="mdl-textfield__label" for="r-alias">Alias...</label>
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label login-register-field">
-					<input class="mdl-textfield__input" type="email" id="r-email" name="email">
+					<input class="mdl-textfield__input" type="email" id="r-email" name="email" [(ngModel)]="email">
 					<label class="mdl-textfield__label" for="r-email">Email...</label>
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label login-register-field">
-					<input class="mdl-textfield__input" type="password" id="r-password" name="password">
+					<input class="mdl-textfield__input" type="password" id="r-password" name="password" [(ngModel)]="password">
 					<label class="mdl-textfield__label" for="r-password">Password...</label>
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label login-register-field">
-					<input class="mdl-textfield__input" type="password" id="r-password-confirm" name="password2">
+					<input class="mdl-textfield__input" type="password" id="r-password-confirm" name="password2" [(ngModel)]="password2">
 					<label class="mdl-textfield__label" for="r-password-confirm">Confirm password...</label>
 				</div>
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect login-register-field" type="submit">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect login-register-field" type="submit" (click)="register()">
 					Register
 				</button>
 			</form>
@@ -30,14 +30,14 @@
 		<div class="mdl-tabs__panel" id="login">
 			<form>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label login-register-field">
-					<input class="mdl-textfield__input" type="email" id="l-email" name="email">
+					<input class="mdl-textfield__input" type="email" id="l-email" name="email" [(ngModel)]="email">
 					<label class="mdl-textfield__label" for="l-email">Email...</label>
 				</div>
 				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label login-register-field">
-					<input class="mdl-textfield__input" type="password" id="l-password" name="password">
+					<input class="mdl-textfield__input" type="password" id="l-password" name="password" [(ngModel)]="password">
 					<label class="mdl-textfield__label" for="l-password">Password...</label>
 				</div>
-				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect login-register-field" type="submit">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect login-register-field" type="submit" (click)="login()">
 					Login
 				</button>
 			</form>

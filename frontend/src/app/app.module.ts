@@ -1,4 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
+import {FormsModule} from "@angular/forms";
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 
@@ -18,6 +19,7 @@ import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-
     ],
     imports: [
         BrowserModule,
+        FormsModule,
         RouterModule.forRoot([
             {
                 path: '',
