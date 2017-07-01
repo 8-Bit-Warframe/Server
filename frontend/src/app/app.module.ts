@@ -8,12 +8,16 @@ import {HomeComponent} from "./home-component/home-component";
 import {AboutComponent} from "./about-component/about-component";
 import {AuthComponent} from "./auth-component/auth-component";
 import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-component";
+import {ForumComponent} from "./forums/forum-component/forum-component";
+import {ForumSectionComponent} from "./forums/forum-section-component/forum-section-component";
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         AboutComponent,
+        ForumComponent,
+        ForumSectionComponent,
         AuthComponent,
         ImageCarouselComponent
     ],
@@ -28,6 +32,10 @@ import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-
             {
                 path: 'about',
                 component: AboutComponent
+            },
+            {
+                path: 'forums',
+                component: ForumComponent
             },
             {
                 path: 'auth',
