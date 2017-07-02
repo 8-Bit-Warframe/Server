@@ -9,7 +9,7 @@ import {AboutComponent} from "./about-component/about-component";
 import {AuthComponent} from "./auth-component/auth-component";
 import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-component";
 import {ForumComponent} from "./forums/forum-component/forum-component";
-import {ForumSectionComponent} from "./forums/forum-section-component/forum-section-component";
+import {ForumSectionComponent} from "./forums/forum-category-component/forum-category-component";
 
 @NgModule({
     declarations: [
