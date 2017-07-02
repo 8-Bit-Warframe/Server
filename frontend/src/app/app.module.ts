@@ -11,7 +11,7 @@ import {AuthComponent} from "./auth-component/auth-component";
 import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-component";
 import {ForumComponent} from "./forums/forum/forum.component";
 import {ForumSectionComponent} from "./forums/forum-category/forum-category.component";
-import {ForumService} from "./forums/services/ForumService";
+import {ForumService} from "./forums/services/forum-service";
 
 @NgModule({
     declarations: [
