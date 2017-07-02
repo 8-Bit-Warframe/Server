@@ -1,5 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
+import {HttpModule} from "@angular/http";
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 
@@ -8,8 +9,9 @@ import {HomeComponent} from "./home-component/home-component";
 import {AboutComponent} from "./about-component/about-component";
 import {AuthComponent} from "./auth-component/auth-component";
 import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-component";
-import {ForumComponent} from "./forums/forum-component/forum-component";
-import {ForumSectionComponent} from "./forums/forum-category-component/forum-category-component";
+import {ForumComponent} from "./forums/forum/forum.component";
+import {ForumSectionComponent} from "./forums/forum-category/forum-category.component";
+import {ForumService} from "./forums/services/ForumService";
 
 @NgModule({
     declarations: [
@@ -24,6 +26,7 @@ import {ForumSectionComponent} from "./forums/forum-category-component/forum-cat
     imports: [
         BrowserModule,
         FormsModule,
+        HttpModule,
         RouterModule.forRoot([
             {
                 path: '',
@@ -43,7 +46,7 @@ import {ForumSectionComponent} from "./forums/forum-category-component/forum-cat
             }
         ])
     ],
-    providers: [],
+    providers: [ForumService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
