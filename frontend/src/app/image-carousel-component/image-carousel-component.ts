@@ -23,31 +23,6 @@ export class ImageCarouselComponent {
             id: 0,
             url: 'assets/images/image1.png',
             caption: 'Lost Sector'
-        },
-        {
-            id: 1,
-            url: 'https://wallpaperfx.com/view_image/luxury-resort-in-maldives-1920x1080-wallpaper-18571.jpg',
-            caption: 'Caption 2'
-        },
-        {
-            id: 2,
-            url: 'https://wallpaperfx.com/view_image/hamburg-promenade-view-1920x1080-wallpaper-18565.jpg',
-            caption: 'Caption 3'
-        },
-        {
-            id: 3,
-            url: 'https://wallpaperfx.com/view_image/the-grand-canal-venice-1920x1080-wallpaper-18553.jpg',
-            caption: 'Caption 4'
-        },
-        {
-            id: 4,
-            url: 'https://wallpaperfx.com/view_image/lauterbrunnen-valley-1920x1080-wallpaper-18551.jpg',
-            caption: 'Caption 5'
-        },
-        {
-            id: 5,
-            url: 'https://wallpaperfx.com/view_image/blue-mountains-1920x1080-wallpaper-18549.jpg',
-            caption: 'Caption 6'
         }
     ];
 
