@@ -21,8 +21,8 @@ export class ImageCarouselComponent {
     images: Image[] = [
         {
             id: 0,
-            url: 'https://wallpaperfx.com/view_image/union-jack-flag-of-the-uk-1920x1080-wallpaper-18581.jpg',
-            caption: 'Caption 1'
+            url: 'assets/images/image1.png',
+            caption: 'Lost Sector'
         },
         {
             id: 1,
