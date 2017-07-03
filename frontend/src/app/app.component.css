@@ -1,0 +1,27 @@
+.layout-transparent{
+    background: #111;
+    color: white
+}
+
+.mdl-navigation__link{
+    color: white;
+    font-weight: bold;
+}
+
+.layout-transparent /deep/ .mdl-layout__drawer-button {
+    color: white;
+}
+
+img.logo-mobile{
+    display: none;
+}
+
+@media screen and (max-width: 1024px){
+    img.logo-mobile{
+        display: block;
+        position: relative;
+        left: 48px;
+        height: 48px;
+        margin: 4px;
+    }
+}
