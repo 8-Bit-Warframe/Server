@@ -5,7 +5,7 @@
  */
 
 const app = require('../app');
-const debug = require('debug')('websitebackend:server');
+const debug = require('debug')('backend');
 const http = require('http');
 
 /**
