@@ -6,7 +6,7 @@ module.exports = {
 	apps: [
 		{
 			name: 'backend',
-			script: 'backend/bin/www.js',
+			script: 'backend/bin/www',
 			watch: ['backend'],
 			env_production: {
 				NODE_ENV: 'production'
