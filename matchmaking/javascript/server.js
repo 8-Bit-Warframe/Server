@@ -1,5 +1,20 @@
-import Player from "./player";
-import GameManager from "./gamemanager";
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Message = exports.Server = undefined;
+
+var _player = require("./player");
+
+var _player2 = _interopRequireDefault(_player);
+
+var _gamemanager = require("./gamemanager");
+
+var _gamemanager2 = _interopRequireDefault(_gamemanager);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 const dgram = require("dgram");
 const server = dgram.createSocket("udp4");
 const PING_INTERVAL = 1000;
@@ -42,9 +57,8 @@ class Server {
                 };
                 sendMessage(JSON.stringify(message), player);
             }
-            GameManager.destroyGame(game);
-        }
-        else {
+            _gamemanager2.default.destroyGame(game);
+        } else {
             for (let p of game.getPlayers()) {
                 if (p.uid != player.uid) {
                     sendMessage(JSON.stringify({ message: PLAYER_LEAVE, player: player.getJson(game.getPlayerId(player)) }), player);
@@ -59,13 +73,15 @@ class Message {
         this.gameId = null;
     }
 }
-export { Server, Message };
+exports.Server = Server;
+exports.Message = Message;
+
 server.on("message", function (msg, info) {
     const message = JSON.parse(msg);
-    const player = Player.fromData(info, message);
+    const player = _player2.default.fromData(info, message);
     let game = null;
     if (message.gameId != null) {
-        game = GameManager.getGameById(message.gameId);
+        game = _gamemanager2.default.getGameById(message.gameId);
     }
     switch (message.message) {
         case MATCHMAKING_JOIN:
@@ -73,7 +89,7 @@ server.on("message", function (msg, info) {
             printState();
             break;
         case GAME_CREATE:
-            GameManager.confirmGame(game.id);
+            _gamemanager2.default.confirmGame(game.id);
             printState();
             break;
         case GAME_JOIN:
@@ -92,12 +108,11 @@ server.on("message", function (msg, info) {
 });
 server.bind(3000);
 function joinMatchmaking(player) {
-    let game = GameManager.findGame();
+    let game = _gamemanager2.default.findGame();
     if (game) {
         Server.addPlayer(game, player);
-    }
-    else {
-        const game = GameManager.createGame(player);
+    } else {
+        const game = _gamemanager2.default.createGame(player);
         const message = {
             message: GAME_CREATE,
             game: game.getJson()
@@ -110,7 +125,7 @@ function sendMessage(message, player) {
 }
 function printState() {
     console.log("Current state:");
-    for (let game of GameManager.games) {
+    for (let game of _gamemanager2.default.games) {
         let log = "\n";
         log += "+---------------------------------+\n";
         log += "|Game                             |\n";
@@ -127,8 +142,7 @@ function printState() {
             log += "|       |MM port  |" + pad(player.matchmakingPort, 15) + "|\n";
             if (game.probation[i]) {
                 log += "|       |probation|0              |\n";
-            }
-            else {
+            } else {
                 log += "|       |probation|" + pad((game.probationTimeout[i] - Date.now()) / 1000, 15) + "|\n";
             }
         }
@@ -149,4 +163,3 @@ function pad(object, targetLength) {
     }
     return str;
 }
-//# sourceMappingURL=server.js.map

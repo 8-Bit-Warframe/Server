@@ -1,5 +1,12 @@
-import { Server } from "./server";
-export default class Game {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _server = require("./server");
+
+class Game {
     constructor(id) {
         this.players = [];
         this.probation = [];
@@ -11,8 +18,7 @@ export default class Game {
         if (host) {
             if (this.host != null) {
                 console.error("Could not set player as host, as a host already exists");
-            }
-            else {
+            } else {
                 this.host = player;
             }
         }
@@ -20,7 +26,9 @@ export default class Game {
         this.players[id] = player;
         if (player.uid != this.host.uid) {
             const game = this;
-            this.probation[id] = setTimeout(function () { Server.removePlayer(game, this.players[id]); }, 60000);
+            this.probation[id] = setTimeout(function () {
+                _server.Server.removePlayer(game, this.players[id]);
+            }, 60000);
             this.probationTimeout[id] = Date.now() + 60000;
         }
     }
@@ -28,7 +36,9 @@ export default class Game {
         const id = this.players.findIndex(p => p.uid == player.uid);
         clearTimeout(this.probation[id]);
         const game = this;
-        this.probation[id] = setTimeout(function () { Server.removePlayer(game, player); }, 10000);
+        this.probation[id] = setTimeout(function () {
+            _server.Server.removePlayer(game, player);
+        }, 10000);
         this.probationTimeout[id] = Date.now() + 10000;
     }
     removePlayer(player) {
@@ -55,8 +65,7 @@ export default class Game {
         for (let i = 0; i < this.players.length; i++) {
             if (this.players[i] == null) {
                 players[i] = null;
-            }
-            else {
+            } else {
                 players[i] = this.players[i].getJson(i);
             }
         }
@@ -66,4 +75,4 @@ export default class Game {
         };
     }
 }
-//# sourceMappingURL=game.js.map
+exports.default = Game;
