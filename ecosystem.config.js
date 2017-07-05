@@ -27,25 +27,27 @@ module.exports = {
 	 * Deployment section
 	 * http://pm2.keymetrics.io/docs/usage/deployment/
 	 */
-	/*deploy: {
+	deploy: {
 		production: {
+			key: 'E:/Keys/8bitwarframe.com/node/private_openssh',
 			user: 'node',
-			host: '212.83.163.1',
+			host: '178.62.33.251',
 			ref: 'origin/master',
-			repo: 'git@github.com:repo.git',
+			repo: 'git@github.com:8-Bit-Warframe/Server.git',
 			path: '/var/www/production',
-			'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production'
+			'post-deploy': 'npm install && ng build -prod && pm2 reload ecosystem.config.js --env production'
 		},
 		dev: {
+			key: 'E:/Keys/8bitwarframe.com/node/private_openssh',
 			user: 'node',
-			host: '212.83.163.1',
+			host: '178.62.33.251',
 			ref: 'origin/master',
-			repo: 'git@github.com:repo.git',
+			repo: 'git@github.com:8-Bit-Warframe/Server.git',
 			path: '/var/www/development',
-			'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env dev',
+			'post-deploy': 'npm install && ng build -prod && pm2 reload ecosystem.config.js --env dev',
 			env: {
 				NODE_ENV: 'dev'
 			}
 		}
-	}*/
+	}
 };
