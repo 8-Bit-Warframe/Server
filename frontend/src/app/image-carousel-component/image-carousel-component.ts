@@ -27,14 +27,18 @@ export class ImageCarouselComponent {
     ];
 
     ngOnInit() {
-        this.createInterval();
-        ImageCarouselComponent.runBlazy();
+        if (this.images.length > 1) {
+            this.createInterval();
+            ImageCarouselComponent.runBlazy();
+        }
     }
 
     onSelect(image: Image): void {
-        this.current = image.id;
-        clearInterval(this.timer);
-        this.createInterval();
+        if (this.images.length > 1) {
+            this.current = image.id;
+            clearInterval(this.timer);
+            this.createInterval();
+        }
     }
 
     private createInterval() {
