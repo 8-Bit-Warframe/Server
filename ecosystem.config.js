@@ -44,7 +44,7 @@ module.exports = {
 			ref: 'origin/master',
 			repo: 'git@github.com:8-Bit-Warframe/Server.git',
 			path: '/var/www/development',
-			'post-deploy': 'npm install && ng build -prod && pm2 reload ecosystem.config.js --env dev',
+			'post-deploy': 'chmod 777 ./install-dev.sh && ./install-dev.sh',
 			env: {
 				NODE_ENV: 'dev'
 			}
