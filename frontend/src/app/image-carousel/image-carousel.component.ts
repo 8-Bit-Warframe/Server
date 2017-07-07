@@ -10,8 +10,8 @@ declare const Blazy: any;
 
 @Component({
     selector: 'image-carousel',
-    templateUrl: './image-carousel-component.html',
-    styleUrls: ['./image-carousel-component.scss']
+    templateUrl: './image-carousel.component.html',
+    styleUrls: ['./image-carousel.component.scss']
 })
 
 export class ImageCarouselComponent {

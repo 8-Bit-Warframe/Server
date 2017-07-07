@@ -8,7 +8,7 @@ import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 import {AboutComponent} from "./about/about.component";
 import {AuthComponent} from "./auth/auth.component";
-import {ImageCarouselComponent} from "./image-carousel-component/image-carousel-component";
+import {ImageCarouselComponent} from "./image-carousel/image-carousel.component";
 import {ForumComponent} from "./forums/forum/forum.component";
 import {ForumSectionComponent} from "./forums/forum-category/forum-category.component";
 import {ForumService} from "./forums/services/forum-service";
