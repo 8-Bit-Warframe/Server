@@ -1,4 +1,4 @@
-import {SubForum} from "./sub-forum";
+import {SubForum} from './sub-forum';
 
 export class ForumCategory {
     id: string;

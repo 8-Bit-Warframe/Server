@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 
 export class Image {
     id: number;
@@ -14,7 +14,7 @@ declare const Blazy: any;
     styleUrls: ['./image-carousel.component.scss']
 })
 
-export class ImageCarouselComponent {
+export class ImageCarouselComponent implements OnInit {
     timer;
     direction = 1;
     current = 0;
@@ -43,10 +43,10 @@ export class ImageCarouselComponent {
 
     private createInterval() {
         this.timer = setInterval(() => {
-            if (this.direction == 1 && this.current == this.images.length - 1) {
+            if (this.direction === 1 && this.current === this.images.length - 1) {
                 this.direction = -1;
             }
-            if (this.direction == -1 && this.current == 0) {
+            if (this.direction === -1 && this.current === 0) {
                 this.direction = 1;
             }
             this.current += this.direction;
