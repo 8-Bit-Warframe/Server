@@ -7,6 +7,6 @@ const tsProject = ts.createProject('tsconfig.json');
 gulp.task('default', function () {
 	return gulp.src('src/**/*.ts')
 		.pipe(tsProject()).js
-		// .pipe(babel())
+		.pipe(babel())
 		.pipe(gulp.dest('dist'));
 });
