@@ -21,7 +21,11 @@ export class AuthRouter {
         router.post('/register', (req, res) => {
             let result = AuthRouter.checkQueryParams(req, ['alias', 'email', 'password', 'password2']);
             if (result === null) {
-                res.end();
+                if (req.query.password !== req.query.password2) {
+                    res.send(new AuthResponse(false, 'Passwords must match').toJsonString()).end();
+                } else {
+                    res.end();
+                }
             } else {
                 res.send(new AuthResponse(false, result).toJsonString()).end();
             }
