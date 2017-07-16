@@ -12,7 +12,6 @@ export class AuthRouter {
     static addRoutes(router: Router): void {
         router.post('/login', (req, res) => {
             let result = AuthRouter.checkQueryParams(req, ['email', 'password']);
-            console.log(result);
             if (result === null) {
                 res.end();
             } else {
@@ -21,7 +20,6 @@ export class AuthRouter {
         });
         router.post('/register', (req, res) => {
             let result = AuthRouter.checkQueryParams(req, ['alias', 'email', 'password', 'password2']);
-            console.log(result);
             if (result === null) {
                 res.end();
             } else {
