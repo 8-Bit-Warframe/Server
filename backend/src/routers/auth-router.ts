@@ -1,7 +1,5 @@
 import {Request, Router} from 'express';
 import * as password from 'password-hash-and-salt';
-
-import {User} from '../../../shared/user';
 import {UserModel} from '../models/user';
 
 export class AuthRouter {
