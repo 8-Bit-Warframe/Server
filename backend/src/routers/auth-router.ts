@@ -64,7 +64,7 @@ export class AuthRouter {
 
     private static checkQueryParams(req: Request, params: string[]): string {
         let getName = (param) => AuthRouter.paramNames[param];
-        params.filter(element => !req.query[element]);
+        params = params.filter(element => !req.query[element]);
         if (params.length > 0) {
             if (params.length === 1) {
                 return `The field '${getName(params[0])}' must be filled in`;
