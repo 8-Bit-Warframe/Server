@@ -1,5 +1,8 @@
 import {Request, Router} from 'express';
+import * as password from 'password-hash-and-salt';
+
 import {User} from '../../../shared/user';
+import {UserModel} from '../models/user';
 
 export class AuthRouter {
     private static paramNames = {
@@ -24,6 +27,19 @@ export class AuthRouter {
                 if (req.query.password !== req.query.password2) {
                     res.send(new AuthResponse(false, 'Passwords must match').toJsonString()).end();
                 } else {
+                    password(req.query.password).hash((error, hash) => {
+                        if (error) {
+                            console.error('AuthRouter: register: ', error);
+                            res.send(new AuthResponse(false, 'An error occurred. Please try again').toJsonString()).end();
+                        } else {
+                            UserModel.createUser(req.query.alias, req.query.email, hash)
+                                     .then(value => res.send(new AuthResponse(false, 'User registered', value).toJsonString()).end())
+                                     .catch(reason => {
+                                         console.error('AuthRouter: createUser: ', reason);
+                                         res.send(new AuthResponse(false, 'An error occurred. Please try again').toJsonString()).end()
+                                     });
+                        }
+                    });
                     res.end();
                 }
             } else {
@@ -60,9 +76,9 @@ export class AuthRouter {
 class AuthResponse {
     success: boolean;
     message: string;
-    user?: User;
+    user?: UserModel;
 
-    constructor(success: boolean, message: string, user?: User) {
+    constructor(success: boolean, message: string, user?: UserModel) {
         this.success = success;
         this.message = message;
         this.user = user;
