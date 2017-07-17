@@ -103,7 +103,7 @@ class AuthResponse {
             message: this.message,
             user: undefined
         };
-        if (this.user !== null) {
+        if (this.user !== undefined) {
             returnVal.user = {
                 alias: this.user.alias,
                 email: this.user.email,
