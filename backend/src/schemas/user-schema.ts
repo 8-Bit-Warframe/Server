@@ -1,5 +1,6 @@
-import {model, Schema} from 'mongoose';
+import {Schema} from 'mongoose';
 import {UserDocument} from '../documents/user-document';
+import {db} from '../config/mongoose';
 
 let schema = new Schema({
     alias: {
@@ -29,4 +30,4 @@ let schema = new Schema({
     return this;
 });
 
-export let UserSchema = model<UserDocument>('user', schema, 'users');
+export let UserSchema = db.model<UserDocument>('user', schema, 'users');
