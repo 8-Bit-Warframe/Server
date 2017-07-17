@@ -98,6 +98,19 @@ class AuthResponse {
     }
 
     toJsonString(): string {
-        return JSON.stringify(this, (key, value) => key === 'password' ? undefined : value);
+        let returnVal = {
+            success: this.success,
+            message: this.message,
+            user: undefined
+        };
+        if (this.user !== null) {
+            returnVal.user = {
+                alias: this.user.alias,
+                email: this.user.email,
+                createdAt: this.user.createdAt,
+                modifiedAt: this.user.modifiedAt
+            };
+        }
+        return JSON.stringify(returnVal);
     }
 }
