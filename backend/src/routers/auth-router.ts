@@ -14,19 +14,19 @@ export class AuthRouter {
         router.post('/login', (req: Request, res: Response) => {
             let result = AuthRouter.checkQueryParams(req, ['email', 'password']);
             if (result === null) {
-                UserModel.getUser({email: req.query.email})
+                UserModel.getUser({email: req.body.email})
                          .then(value => {
                              if (value === null) {
                                  res.json(new AuthResponse(false, 'A user account with that email address was not found').toJson()).end();
                              } else {
-                                 password(req.query.password).verifyAgainst(value.password, (error, verified) => {
+                                 password(req.body.password).verifyAgainst(value.password, (error, verified) => {
                                      if (error) {
                                          console.error('AuthRouter: login: ', error);
                                          res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end();
                                      } else if (verified) {
-                                         res.json(new AuthResponse(false, 'Incorrect password').toJson()).end();
-                                     } else {
                                          res.json(new AuthResponse(true, 'User logged in', value).toJson()).end();
+                                     } else {
+                                         res.json(new AuthResponse(false, 'Incorrect password').toJson()).end();
                                      }
                                  });
                              }
@@ -38,15 +38,15 @@ export class AuthRouter {
         router.post('/register', (req: Request, res: Response) => {
             let result = AuthRouter.checkQueryParams(req, ['alias', 'email', 'password', 'password2']);
             if (result === null) {
-                if (req.query.password !== req.query.password2) {
+                if (req.body.password !== req.body.password2) {
                     res.json(new AuthResponse(false, 'Passwords must match').toJson()).end();
                 } else {
-                    password(req.query.password).hash((error, hash) => {
+                    password(req.body.password).hash((error, hash) => {
                         if (error) {
                             console.error('AuthRouter: register: ', error);
                             res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end();
                         } else {
-                            UserModel.createUser(req.query.alias, req.query.email, hash)
+                            UserModel.createUser(req.body.alias, req.body.email, hash)
                                      .then(value => res.json(new AuthResponse(false, 'User registered', value).toJson()).end())
                                      .catch(reason => {
                                          console.error('AuthRouter: createUser: ', reason);
@@ -63,7 +63,7 @@ export class AuthRouter {
 
     private static checkQueryParams(req: Request, params: string[]): string {
         let getName = (param) => AuthRouter.paramNames[param];
-        params = params.filter(element => !req.query[element]);
+        params = params.filter(element => !req.body[element]);
         if (params.length > 0) {
             if (params.length === 1) {
                 return `The field '${getName(params[0])}' must be filled in`;
