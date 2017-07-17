@@ -17,46 +17,46 @@ export class AuthRouter {
                 UserModel.getUser({email: req.query.email})
                          .then(value => {
                              if (value === null) {
-                                 res.send(new AuthResponse(false, 'A user account with that email address was not found').toJsonString()).end();
+                                 res.json(new AuthResponse(false, 'A user account with that email address was not found').toJson()).end();
                              } else {
                                  password(req.query.password).verifyAgainst(value.password, (error, verified) => {
                                      if (error) {
                                          console.error('AuthRouter: login: ', error);
-                                         res.send(new AuthResponse(false, 'An error occurred. Please try again').toJsonString()).end();
+                                         res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end();
                                      } else if (verified) {
-                                         res.send(new AuthResponse(false, 'Incorrect password').toJsonString()).end();
+                                         res.json(new AuthResponse(false, 'Incorrect password').toJson()).end();
                                      } else {
-                                         res.send(new AuthResponse(true, 'User logged in', value).toJsonString()).end();
+                                         res.json(new AuthResponse(true, 'User logged in', value).toJson()).end();
                                      }
                                  });
                              }
                          });
             } else {
-                res.send(new AuthResponse(false, result).toJsonString()).end();
+                res.json(new AuthResponse(false, result).toJson()).end();
             }
         });
         router.post('/register', (req: Request, res: Response) => {
             let result = AuthRouter.checkQueryParams(req, ['alias', 'email', 'password', 'password2']);
             if (result === null) {
                 if (req.query.password !== req.query.password2) {
-                    res.send(new AuthResponse(false, 'Passwords must match').toJsonString()).end();
+                    res.json(new AuthResponse(false, 'Passwords must match').toJson()).end();
                 } else {
                     password(req.query.password).hash((error, hash) => {
                         if (error) {
                             console.error('AuthRouter: register: ', error);
-                            res.send(new AuthResponse(false, 'An error occurred. Please try again').toJsonString()).end();
+                            res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end();
                         } else {
                             UserModel.createUser(req.query.alias, req.query.email, hash)
-                                     .then(value => res.send(new AuthResponse(false, 'User registered', value).toJsonString()).end())
+                                     .then(value => res.json(new AuthResponse(false, 'User registered', value).toJson()).end())
                                      .catch(reason => {
                                          console.error('AuthRouter: createUser: ', reason);
-                                         res.send(new AuthResponse(false, 'An error occurred. Please try again').toJsonString()).end()
+                                         res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end()
                                      });
                         }
                     });
                 }
             } else {
-                res.send(new AuthResponse(false, result).toJsonString()).end();
+                res.json(new AuthResponse(false, result).toJson()).end();
             }
         });
     }
@@ -97,7 +97,7 @@ class AuthResponse {
         this.user = user;
     }
 
-    toJsonString(): string {
+    toJson(): object {
         let returnVal = {
             success: this.success,
             message: this.message,
@@ -111,6 +111,6 @@ class AuthResponse {
                 modifiedAt: this.user.modifiedAt
             };
         }
-        return JSON.stringify(returnVal);
+        return returnVal;
     }
 }
