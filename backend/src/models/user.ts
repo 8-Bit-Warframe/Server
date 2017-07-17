@@ -37,6 +37,7 @@ export class UserModel {
     }
 
     static getUser(conditions: object): Promise<UserModel> {
+        UserModel.init();
         return UserModel.userRepository.findOne(conditions).exec().then(value => {
             if (!value) {
                 return null;
