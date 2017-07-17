@@ -22,6 +22,14 @@ export class UserModel {
         return this.userDocument.password;
     }
 
+    get createdAt() {
+        return this.userDocument.createdAt;
+    }
+
+    get modifiedAt() {
+        return this.userDocument.modifiedAt;
+    }
+
     private static init() {
         UserModel.userRepository = UserModel.userRepository || new UserRepository();
     }
