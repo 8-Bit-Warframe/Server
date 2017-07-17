@@ -98,6 +98,6 @@ class AuthResponse {
     }
 
     toJsonString(): string {
-        return JSON.stringify(this, (key, value) => key === 'password' ? null : value);
+        return JSON.stringify(this, (key, value) => key === 'password' ? undefined : value);
     }
 }
