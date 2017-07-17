@@ -1,4 +1,4 @@
-import {Request, Router} from 'express';
+import {Request, Response, Router} from 'express';
 import * as password from 'password-hash-and-salt';
 import {UserModel} from '../models/user';
 
@@ -11,7 +11,7 @@ export class AuthRouter {
     };
 
     static addRoutes(router: Router): void {
-        router.post('/login', (req, res) => {
+        router.post('/login', (req: Request, res: Response) => {
             let result = AuthRouter.checkQueryParams(req, ['email', 'password']);
             if (result === null) {
                 UserModel.getUser({email: req.query.email})
@@ -35,7 +35,7 @@ export class AuthRouter {
                 res.send(new AuthResponse(false, result).toJsonString()).end();
             }
         });
-        router.post('/register', (req, res) => {
+        router.post('/register', (req: Request, res: Response) => {
             let result = AuthRouter.checkQueryParams(req, ['alias', 'email', 'password', 'password2']);
             if (result === null) {
                 if (req.query.password !== req.query.password2) {
