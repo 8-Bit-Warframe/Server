@@ -58,7 +58,7 @@ export class AuthRouter {
             } else {
                 res.send(new AuthResponse(false, result).toJsonString()).end();
             }
-        })
+        });
     }
 
     private static checkQueryParams(req: Request, params: string[]): string {
