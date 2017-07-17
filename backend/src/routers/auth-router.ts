@@ -54,7 +54,6 @@ export class AuthRouter {
                                      });
                         }
                     });
-                    res.end();
                 }
             } else {
                 res.send(new AuthResponse(false, result).toJsonString()).end();
