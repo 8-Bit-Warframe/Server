@@ -8,7 +8,7 @@
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="ts" />
       <option name="immediateSync" value="true" />
-      <option name="name" value="Gulp" />
+      <option name="name" value="Gulp (matchmaking)" />
       <option name="output" value="$ProjectFileDir$\matchmaking\javascript" />
       <option name="outputFilters">
         <array />
@@ -18,6 +18,25 @@
       <option name="scopeName" value="Matchmaking Typescript" />
       <option name="trackOnlyRoot" value="false" />
       <option name="workingDir" value="$ProjectFileDir$/matchmaking" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="$ProjectFileDir$\backend" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" />
+      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="fileExtension" value="ts" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="Gulp (backend)" />
+      <option name="output" value="$ProjectFileDir$\backend\dist" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="$PROJECT_DIR$/backend/compile.cmd" />
+      <option name="scopeName" value="Backend Typescript" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="$ProjectFileDir$/backend" />
       <envs />
     </TaskOptions>
   </component>
