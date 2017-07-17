@@ -14,7 +14,23 @@ export class AuthRouter {
         router.post('/login', (req, res) => {
             let result = AuthRouter.checkQueryParams(req, ['email', 'password']);
             if (result === null) {
-                res.end();
+                UserModel.getUser({email: req.query.email})
+                         .then(value => {
+                             if (value === null) {
+                                 res.send(new AuthResponse(false, 'A user account with that email address was not found').toJsonString()).end();
+                             } else {
+                                 password(req.query.password).verifyAgainst(value.password, (error, verified) => {
+                                     if (error) {
+                                         console.error('AuthRouter: login: ', error);
+                                         res.send(new AuthResponse(false, 'An error occurred. Please try again').toJsonString()).end();
+                                     } else if (verified) {
+                                         res.send(new AuthResponse(false, 'Incorrect password').toJsonString()).end();
+                                     } else {
+                                         res.send(new AuthResponse(true, 'User logged in', value).toJsonString()).end();
+                                     }
+                                 });
+                             }
+                         });
             } else {
                 res.send(new AuthResponse(false, result).toJsonString()).end();
             }
