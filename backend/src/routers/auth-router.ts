@@ -1,5 +1,7 @@
 import {Request, Response, Router} from 'express';
 import * as password from 'password-hash-and-salt';
+import * as jwt from 'jsonwebtoken';
+
 import {UserModel} from '../models/user';
 
 export class AuthRouter {
@@ -107,10 +109,16 @@ class AuthResponse {
             returnVal.user = {
                 alias: this.user.alias,
                 email: this.user.email,
-                createdAt: this.user.createdAt,
-                modifiedAt: this.user.modifiedAt
+                jwt: this.generateJwt()
             };
         }
         return returnVal;
+    }
+
+    private generateJwt(): string {
+        let payload: object = {
+            email: this.user.email
+        };
+        return jwt.sign(payload, process.env.LS_JWT_SECRET || 'secret');
     }
 }
