@@ -1,7 +1,11 @@
-import {User} from '../../../../../shared/user';
-
 export interface AuthResponse {
     success: boolean;
     message: string;
-    user?: User;
+    user?: AuthUser;
+}
+
+export interface AuthUser {
+    alias: string;
+    email: string;
+    jwt: string;
 }
