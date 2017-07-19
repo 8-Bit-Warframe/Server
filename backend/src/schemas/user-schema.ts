@@ -6,12 +6,12 @@ let schema = new Schema({
     alias: {
         type: String,
         required: true,
-        unique: true
+        unique: 'Alias already exists'
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: 'Email already exists'
     },
     password: {
         type: String,
@@ -28,6 +28,6 @@ let schema = new Schema({
     }
     next();
     return this;
-});
+}).plugin(require('mongoose-beautiful-unique-validation'));
 
 export let UserSchema = db.model<UserDocument>('user', schema, 'users');
