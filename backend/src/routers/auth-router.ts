@@ -47,7 +47,7 @@ export class AuthRouter {
                             res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end();
                         } else {
                             UserModel.createUser(req.body.alias, req.body.email, hash)
-                                     .then(value => res.json(new AuthResponse(false, 'User registered', value).toJson()).end())
+                                     .then(value => res.json(new AuthResponse(true, 'User registered', value).toJson()).end())
                                      .catch(reason => {
                                          console.error('AuthRouter: createUser: ', reason);
                                          res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end()
