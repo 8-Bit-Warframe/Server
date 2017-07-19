@@ -51,8 +51,7 @@ export class AuthRouter {
                             UserModel.createUser(req.body.alias, req.body.email, hash)
                                      .then(value => res.json(new AuthResponse(true, 'User registered', value).toJson()).end())
                                      .catch(reason => {
-                                         console.error('AuthRouter: createUser: ', reason);
-                                         res.json(new AuthResponse(false, 'An error occurred. Please try again').toJson()).end()
+                                         res.json(new AuthResponse(false, 'Error: ' + AuthRouter.getErrorMessage(reason)).toJson()).end()
                                      });
                         }
                     });
@@ -85,6 +84,12 @@ export class AuthRouter {
         } else {
             return null;
         }
+    }
+
+    private static getErrorMessage(reason: any) {
+        let errors = reason.errors;
+        let error = errors[Object.keys(errors)[0]];
+        return error.message;
     }
 }
 
