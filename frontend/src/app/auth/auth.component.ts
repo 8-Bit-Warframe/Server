@@ -17,7 +17,9 @@ export class AuthComponent implements AfterViewInit {
     password = '';
     password2 = '';
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) {
+    }
+
     selectTab(id: number): void {
         if (id === 0) {
             document.getElementById('login').classList.remove('is-active');
@@ -31,9 +33,11 @@ export class AuthComponent implements AfterViewInit {
             document.getElementById('loginTab').classList.add('is-active');
         }
     }
+
     ngAfterViewInit() {
         componentHandler.upgradeAllRegistered();
     }
+
     register() {
         this.authService.register(this.alias, this.email, this.password, this.password2).then(value => {
             if (value.success) {
@@ -45,6 +49,7 @@ export class AuthComponent implements AfterViewInit {
             }
         });
     }
+
     login() {
         this.authService.login(this.email, this.password).then(value => {
             if (value.success) {
