@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {AuthService} from '../services/auth.service';
+import {StorageService} from '../../services/storage.service';
 
 @Component({
     selector: 'auth-register',
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
         }
     };
 
-    constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+    constructor(private formBuilder: FormBuilder, private authService: AuthService, private storageService: StorageService) {
     }
 
     ngOnInit() {
@@ -103,9 +104,9 @@ export class RegisterComponent implements OnInit {
     onSubmit() {
         this.authService.register(this.alias, this.email, this.password, this.password2).then(value => {
             if (value.success) {
-                window.localStorage.setItem('alias', value.user.alias);
-                window.localStorage.setItem('email', value.user.email);
-                window.localStorage.setItem('jwt', value.user.jwt);
+                this.storageService.alias = value.user.alias;
+                this.storageService.email = value.user.email;
+                this.storageService.jwt = value.user.jwt;
             } else {
                 alert(`Error: ${value.message}`);
             }
