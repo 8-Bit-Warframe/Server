@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
                 window.localStorage.setItem('email', value.user.email);
                 window.localStorage.setItem('jwt', value.user.jwt);
             } else {
-                // error
+                alert(`Error: ${value.message}`);
             }
         });
     }
