@@ -20,6 +20,14 @@ let schema = new Schema({
     friends: {
         type: [Schema.Types.ObjectId],
         required: false
+    },
+    incomingFriendRequests: {
+        type: [Schema.Types.ObjectId],
+        required: false
+    },
+    outgoingFriendRequests: {
+        type: [Schema.Types.ObjectId],
+        required: false
     }
 }).pre('save', function(next) {
     if (this._doc) {

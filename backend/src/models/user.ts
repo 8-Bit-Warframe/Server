@@ -26,6 +26,14 @@ export class UserModel {
         return this.userDocument.friends;
     }
 
+    get incomingFriendRequests() {
+        return this.userDocument.incomingFriendRequests;
+    }
+
+    get outgoingFriendRequests() {
+        return this.userDocument.outgoingFriendRequests;
+    }
+
     get createdAt() {
         return this.userDocument.createdAt;
     }

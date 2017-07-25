@@ -3,6 +3,8 @@ export interface User {
     email: string;
     password: string;
     friends: object[];
+    incomingFriendRequests: object[];
+    outgoingFriendRequests: object[];
     createdAt: Date;
     modifiedAt: Date;
 }
