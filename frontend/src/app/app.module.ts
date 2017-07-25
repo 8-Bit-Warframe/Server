@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
-import {MdInputModule} from '@angular/material';
+import {MdButtonModule, MdInputModule} from '@angular/material';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -35,6 +35,7 @@ import {LoginComponent} from './auth/login/login.component';
         BrowserModule,
         FormsModule,
         HttpModule,
+        MdButtonModule,
         MdInputModule,
         ReactiveFormsModule,
         RouterModule.forRoot([

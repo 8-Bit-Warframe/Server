@@ -2,17 +2,8 @@ form{
     width: 100%;
     padding-bottom: 20px;
 
-    md-input-container{
+    md-input-container, button{
         width: 300px;
         margin: 0 30px;
-    }
-}
-
-.login-register-field{
-    width: 300px;
-    margin: 0 30px;
-
-    & .mdl-textfield__label{
-        color: rgba(0, 0, 0, 0.45);
     }
 }
