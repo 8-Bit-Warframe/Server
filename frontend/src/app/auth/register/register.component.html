@@ -47,7 +47,7 @@
 			{{formErrors.password2}}
 		</md-error>
 	</md-input-container>
-	<button md-raised-button (submit)="onSubmit()">
+	<button md-raised-button [disabled]="form.invalid" (submit)="onSubmit()">
 		REGISTER
 	</button>
 </form>

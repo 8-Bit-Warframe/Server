@@ -25,7 +25,7 @@
 			Password is required
 		</md-error>
 	</md-input-container>
-	<button md-raised-button (submit)="onSubmit()">
+	<button md-raised-button [disabled]="form.invalid" (submit)="onSubmit()">
 		LOGIN
 	</button>
 </form>
