@@ -16,6 +16,10 @@ let schema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    friends: {
+        type: [Schema.Types.ObjectId],
+        required: false
     }
 }).pre('save', function(next) {
     if (this._doc) {
