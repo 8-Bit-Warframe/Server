@@ -40,7 +40,13 @@ export class AuthRouter {
         router.post('/register', (req: Request, res: Response) => {
             let result = AuthRouter.checkQueryParams(req, ['alias', 'email', 'password', 'password2']);
             if (result === null) {
-                if (req.body.password !== req.body.password2) {
+                if (req.body.alias.length < 4) {
+                    res.json(new AuthResponse(false, 'Alias must be at least 4 characters long').toJson()).end();
+                } else if (req.body.alias > 24) {
+                    res.json(new AuthResponse(false, 'Alias cannot be longer than 24 characters long').toJson()).end();
+                } else if (req.body.password.length < 5) {
+                    res.json(new AuthResponse(false, 'Password must be at least 5 characters long').toJson()).end();
+                } else if (req.body.password !== req.body.password2) {
                     res.json(new AuthResponse(false, 'Passwords must match').toJson()).end();
                 } else {
                     password(req.body.password).hash((error, hash) => {
