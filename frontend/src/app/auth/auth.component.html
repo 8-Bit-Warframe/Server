@@ -5,59 +5,7 @@
 			<a class="mdl-tabs__tab" id="loginTab" href="#login" (click)="selectTab(1)">Login</a>
 		</div>
 		<div class="mdl-tabs__panel is-active" id="register">
-			<form [formGroup]="registerForm">
-				<md-input-container>
-					<input
-							mdInput
-							placeholder="Alias..."
-							required
-							formControlName="alias"
-							(blur)="onRegisterValueChanged($event)">
-					<md-error *ngIf="registerFormErrors.alias">
-						{{registerFormErrors.alias}}
-					</md-error>
-				</md-input-container>
-				<md-input-container>
-					<input
-							mdInput
-							placeholder="Email..."
-							required
-							type="email"
-							formControlName="email"
-							(blur)="onRegisterValueChanged($event)">
-					<md-error *ngIf="registerFormErrors.email">
-						{{registerFormErrors.email}}
-					</md-error>
-				</md-input-container>
-				<md-input-container>
-					<input
-							mdInput
-							minlength="5"
-							placeholder="Password..."
-							required
-							type="password"
-							formControlName="password"
-							(blur)="onRegisterValueChanged($event)">
-					<md-error *ngIf="registerFormErrors.password">
-						{{registerFormErrors.password}}
-					</md-error>
-				</md-input-container>
-				<md-input-container>
-					<input
-							mdInput
-							placeholder="Confirm password..."
-							required
-							type="password"
-							formControlName="password2"
-							(blur)="onRegisterValueChanged($event)">
-					<md-error *ngIf="registerFormErrors.password2">
-						{{registerFormErrors.password2}}
-					</md-error>
-				</md-input-container>
-				<button class="mdl-button mdl-js-button mdl-button&#45;&#45;raised mdl-js-ripple-effect login-register-field" (click)="register()">
-					Register
-				</button>
-			</form>
+			<auth-register></auth-register>
 		</div>
 		<div class="mdl-tabs__panel" id="login">
 			<form>

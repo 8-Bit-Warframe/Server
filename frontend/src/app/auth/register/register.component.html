@@ -1,0 +1,53 @@
+<form [formGroup]="form">
+	<md-input-container>
+		<input
+				mdInput
+				placeholder="Alias..."
+				required
+				formControlName="alias"
+				(blur)="onValueChanged($event)">
+		<md-error *ngIf="formErrors.alias">
+			{{formErrors.alias}}
+		</md-error>
+	</md-input-container>
+	<md-input-container>
+		<input
+				mdInput
+				placeholder="Email..."
+				required
+				type="email"
+				formControlName="email"
+				(blur)="onValueChanged($event)">
+		<md-error *ngIf="formErrors.email">
+			{{formErrors.email}}
+		</md-error>
+	</md-input-container>
+	<md-input-container>
+		<input
+				mdInput
+				minlength="5"
+				placeholder="Password..."
+				required
+				type="password"
+				formControlName="password"
+				(blur)="onValueChanged($event)">
+		<md-error *ngIf="formErrors.password">
+			{{formErrors.password}}
+		</md-error>
+	</md-input-container>
+	<md-input-container>
+		<input
+				mdInput
+				placeholder="Confirm password..."
+				required
+				type="password"
+				formControlName="password2"
+				(blur)="onValueChanged($event)">
+		<md-error *ngIf="formErrors.password2">
+			{{formErrors.password2}}
+		</md-error>
+	</md-input-container>
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect login-register-field" (submit)="onSubmit()">
+		Register
+	</button>
+</form>
