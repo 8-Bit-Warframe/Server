@@ -17,6 +17,7 @@ import {ForumSectionComponent} from './forums/forum-category/forum-category.comp
 import {ForumService} from './forums/services/forum-service';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
+import {StorageService} from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,7 @@ import {LoginComponent} from './auth/login/login.component';
             }
         ])
     ],
-    providers: [ForumService],
+    providers: [ForumService, StorageService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
