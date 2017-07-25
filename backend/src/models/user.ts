@@ -22,6 +22,10 @@ export class UserModel {
         return this.userDocument.password;
     }
 
+    get friends() {
+        return this.userDocument.friends;
+    }
+
     get createdAt() {
         return this.userDocument.createdAt;
     }
