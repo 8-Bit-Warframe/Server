@@ -7,6 +7,7 @@ export class StorageService {
         email: undefined,
         jwt: undefined
     };
+    private observers: StorageListener[];
 
     constructor() {
         this.data.alias = StorageService.load('alias');
@@ -21,6 +22,7 @@ export class StorageService {
     set alias(alias: string) {
         this.data.alias = alias;
         StorageService.save('alias', alias);
+        this.notify('alias', alias);
     }
 
     get email() {
@@ -30,6 +32,7 @@ export class StorageService {
     set email(email: string) {
         this.data.email = email;
         StorageService.save('email', email);
+        this.notify('email', email);
     }
 
     get jwt() {
@@ -39,6 +42,17 @@ export class StorageService {
     set jwt(jwt: string) {
         this.data.jwt = jwt;
         StorageService.save('jwt', jwt);
+        this.notify('jwt', jwt);
+    }
+
+    subscribe(observer: StorageListener) {
+        this.observers.push(observer);
+    }
+
+    private notify(key: string, value: string) {
+        for (const observer of this.observers) {
+            observer(key, value);
+        }
     }
 
     private static save(key: string, value: string) {
@@ -48,4 +62,8 @@ export class StorageService {
     private static load(key: string) {
         window.localStorage.getItem(key);
     }
+}
+
+export interface StorageListener {
+    (key: string, value: string): void
 }
