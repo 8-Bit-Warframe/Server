@@ -1,8 +1,11 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
+
+import {MdInputModule} from '@angular/material';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -24,9 +27,12 @@ import {ForumService} from './forums/services/forum-service';
         ImageCarouselComponent
     ],
     imports: [
+        BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
         HttpModule,
+        MdInputModule,
+        ReactiveFormsModule,
         RouterModule.forRoot([
             {
                 path: '',
