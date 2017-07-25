@@ -1,8 +1,8 @@
 <div class="login-register mdl-card mdl-shadow--2dp">
 	<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" style="color: black">
 		<div class="mdl-tabs__tab-bar">
-			<a class="mdl-tabs__tab is-active" id="registerTab" href="/auth#register" (click)="selectTab(0)">Register</a>
-			<a class="mdl-tabs__tab" id="loginTab" href="/auth#login" (click)="selectTab(1)">Login</a>
+			<a class="mdl-tabs__tab is-active" id="registerTab" href="#register" (click)="selectTab(0)">Register</a>
+			<a class="mdl-tabs__tab" id="loginTab" href="#login" (click)="selectTab(1)">Login</a>
 		</div>
 		<div class="mdl-tabs__panel is-active" id="register">
 			<form [formGroup]="registerForm">
