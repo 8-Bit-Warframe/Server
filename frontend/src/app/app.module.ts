@@ -16,6 +16,7 @@ import {ForumComponent} from './forums/forum/forum.component';
 import {ForumSectionComponent} from './forums/forum-category/forum-category.component';
 import {ForumService} from './forums/services/forum-service';
 import {RegisterComponent} from './auth/register/register.component';
+import {LoginComponent} from './auth/login/login.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import {RegisterComponent} from './auth/register/register.component';
         ForumSectionComponent,
         AuthComponent,
         RegisterComponent,
+        LoginComponent,
         ImageCarouselComponent
     ],
     imports: [
