@@ -15,7 +15,7 @@ export class UserRouter {
                         if (!error) {
                             let data = JSON.parse(decoded);
                             // TODO Add more functionality when there is more user data
-                            UserModel.getUser({email: data.email}).then(value => res.end());
+                            UserModel.getUser({email: data.email});
                         }
                     })
                 }
