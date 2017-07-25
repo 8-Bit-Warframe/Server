@@ -9,9 +9,9 @@ export class StorageService {
     };
 
     constructor() {
-        this.data.alias = this.load('alias');
-        this.data.email = this.load('email');
-        this.data.jwt = this.load('jwt');
+        this.data.alias = StorageService.load('alias');
+        this.data.email = StorageService.load('email');
+        this.data.jwt = StorageService.load('jwt');
     }
 
     get alias() {
@@ -20,7 +20,7 @@ export class StorageService {
 
     set alias(alias: string) {
         this.data.alias = alias;
-        this.save('alias', alias);
+        StorageService.save('alias', alias);
     }
 
     get email() {
@@ -29,7 +29,7 @@ export class StorageService {
 
     set email(email: string) {
         this.data.email = email;
-        this.save('email', email);
+        StorageService.save('email', email);
     }
 
     get jwt() {
@@ -38,14 +38,14 @@ export class StorageService {
 
     set jwt(jwt: string) {
         this.data.jwt = jwt;
-        this.save('jwt', jwt);
+        StorageService.save('jwt', jwt);
     }
 
-    private save(key: string, value: string) {
+    private static save(key: string, value: string) {
         window.localStorage.setItem(key, value);
     }
 
-    private load(key: string) {
+    private static load(key: string) {
         window.localStorage.getItem(key);
     }
 }
