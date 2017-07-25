@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {AuthService} from '../services/auth.service';
 
@@ -10,14 +10,29 @@ import {AuthService} from '../services/auth.service';
     providers: [AuthService]
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
     email = '';
     password = '';
+
+    form: FormGroup;
 
     constructor(private formBuilder: FormBuilder, private authService: AuthService) {
     }
 
-    login() {
+    ngOnInit() {
+        this.form = this.formBuilder.group({
+            'email': [this.email, [
+                Validators.required,
+                Validators.email
+            ]],
+            'password': [this.password, [
+                Validators.required
+            ]]
+        });
+    }
+
+    onSubmit() {
         this.authService.login(this.email, this.password).then(value => {
             if (value.success) {
                 window.localStorage.setItem('alias', value.user.alias);
