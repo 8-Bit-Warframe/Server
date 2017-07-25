@@ -2,6 +2,7 @@ import * as express from 'express';
 import {NextFunction, Request, Response, Router} from 'express';
 import * as bodyParser from 'body-parser';
 import {AuthRouter} from './routers/auth-router';
+import {UserRouter} from './routers/user-router';
 
 const app: express.Application = express();
 
@@ -16,6 +17,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 const router: Router = express.Router();
 AuthRouter.addRoutes(router);
+UserRouter.addRoutes(router);
 
 app.use(router);
 
