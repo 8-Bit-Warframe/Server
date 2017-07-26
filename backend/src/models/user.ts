@@ -56,9 +56,9 @@ export class UserModel {
         return UserModel.userRepository.create(user).then(value => new UserModel(value));
     }
 
-    static getUser(conditions: object): Promise<UserModel> {
+    static getUser(conditions: object, options?: object): Promise<UserModel> {
         UserModel.init();
-        return UserModel.userRepository.findOne(conditions).exec().then(value => {
+        return UserModel.userRepository.findOne(conditions, options).exec().then(value => {
             if (!value) {
                 return null;
             } else {
