@@ -22,5 +22,30 @@ export class UserRouter {
             }
             res.end();
         });
+        router.get('/user/friends', (req: Request, res: Response) => {
+            if (req.headers['authorization']) {
+                let split = (<string>req.headers['authorization']).split(' ');
+                if (split[0] === 'Bearer') {
+                    let token = split[1];
+                    jwt.verify(token, process.env.LS_JWT_SECRET || 'secret', (error, decoded: object) => {
+                        if (!error) {
+                            UserModel.getUser({email: decoded['email']})
+                                     .then(user => user.friends.then(friends => {
+                                         friends.forEach(value => ({
+                                             alias: value.alias}));
+                                         res.json(friends).end();
+                                     }).catch(reason => {
+                                         console.error(reason);
+                                         res.end();
+                                     }))
+                                     .catch(reason => {
+                                         console.error(reason);
+                                         res.end();
+                                     });
+                        }
+                    })
+                }
+            }
+        });
     }
 }
