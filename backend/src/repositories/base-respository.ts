@@ -23,12 +23,12 @@ export abstract class BaseRepository<T extends Document> implements IRead<T>, IW
         return this.model.find({});
     }
 
-    findOne(conditions?: object): Query<T> {
-        return this.model.findOne(conditions);
+    findOne(conditions?: object, options?: object): Query<T> {
+        return this.model.findOne(conditions, options);
     }
 
-    find(conditions: object): Query<T[]> {
-        return this.model.find(conditions);
+    find(conditions: object, options?: object): Query<T[]> {
+        return this.model.find(conditions, options);
     }
 
     create(item: T): Promise<T> {
