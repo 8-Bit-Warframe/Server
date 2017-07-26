@@ -23,7 +23,7 @@ export class UserModel {
     }
 
     get friends() {
-        return this.userDocument.friends;
+        return Promise.all(this.userDocument.friends.map(value => UserModel.getUser({'_id': value})));
     }
 
     get incomingFriendRequests() {
