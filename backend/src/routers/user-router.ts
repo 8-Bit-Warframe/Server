@@ -6,21 +6,12 @@ export class UserRouter {
 
     static addRoutes(router: Router) {
         router.get('/user/profile', (req: Request, res: Response) => {
-            console.log(req.headers['authorization']);
-            if (req.headers['authorization']) {
-                let split = (<string>req.headers['authorization']).split(' ');
-                if (split[0] === 'Bearer') {
-                    let token = split[1];
-                    jwt.verify(token, process.env.LS_JWT_SECRET || 'secret', (error, decoded: string) => {
-                        if (!error) {
-                            let data = JSON.parse(decoded);
-                            // TODO Add more functionality when there is more user data
-                            UserModel.getUser({email: data.email});
-                        }
-                    })
-                }
-            }
-            res.end();
+            UserRouter.checkJwt(req)
+                      .then(value => UserModel.getUser({email: value['email']}))
+                      .then(value => res.json(value).end())
+                      .catch(reason => res.sendStatus(500).json({
+                          error: reason
+                      }).end());
         });
         router.get('/user/friends', (req: Request, res: Response) => {
             UserRouter.checkJwt(req)
