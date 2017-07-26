@@ -42,9 +42,15 @@ export class UserRouter {
                                          console.error(reason);
                                          res.end();
                                      });
+                        } else {
+                            res.sendStatus(401).end();
                         }
                     })
+                } else {
+                    res.sendStatus(401).end();
                 }
+            } else {
+                res.sendStatus(401).end();
             }
         });
     }
