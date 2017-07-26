@@ -10,6 +10,10 @@ export class UserModel {
         this.userDocument = userDocument;
     }
 
+    get id() {
+        return this.userDocument._id;
+    }
+
     get alias() {
         return this.userDocument.alias;
     }
