@@ -46,6 +46,28 @@ export class UserModel {
         return this.userDocument.modifiedAt;
     }
 
+    addFriend(alias: string): Promise<boolean> {
+        let p: Promise<UserModel> = UserModel.getUser({alias: alias})
+                                             .then(value => value === null ? Promise.reject('User not found') : Promise.resolve(value));
+        let a = p.then(value => this.userDocument.update({
+            $push: {
+                outgoingFriendRequests: value.id
+            }
+        })).catch(reason => false);
+        let b = p.then(value => value.addIncomingFriendRequest(this.id))
+                 .catch(reason => false);
+        return Promise.all([a, b])
+                      .then(results => results[0] === true && results[1] === true);
+    }
+
+    addIncomingFriendRequest(id: any) {
+        return this.userDocument.update({
+            $push: {
+                incomingFriendRequests: id
+            }
+        });
+    }
+
     private static init() {
         UserModel.userRepository = UserModel.userRepository || new UserRepository();
     }
