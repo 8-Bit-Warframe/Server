@@ -23,34 +23,38 @@ export class UserRouter {
             res.end();
         });
         router.get('/user/friends', (req: Request, res: Response) => {
+            UserRouter.checkJwt(req)
+                      .then(value => UserModel.getUser({email: value['email']}))
+                      .then(value => value.friends)
+                      .then(value => {
+                          value.forEach(item => ({alias: item.alias}));
+                          return value;
+                      })
+                      .then(value => res.json(value).end())
+                      .catch(reason => res.sendStatus(401).json({
+                          error: reason
+                      }).end());
+        });
+    }
+
+    private static checkJwt(req: Request): Promise<string> {
+        return new Promise((resolve, reject) => {
             if (req.headers['authorization']) {
                 let split = (<string>req.headers['authorization']).split(' ');
                 if (split[0] === 'Bearer') {
                     let token = split[1];
                     jwt.verify(token, process.env.LS_JWT_SECRET || 'secret', (error, decoded: object) => {
-                        if (!error) {
-                            UserModel.getUser({email: decoded['email']})
-                                     .then(user => user.friends.then(friends => {
-                                         friends.forEach(value => ({
-                                             alias: value.alias}));
-                                         res.json(friends).end();
-                                     }).catch(reason => {
-                                         console.error(reason);
-                                         res.end();
-                                     }))
-                                     .catch(reason => {
-                                         console.error(reason);
-                                         res.end();
-                                     });
+                        if (error) {
+                            reject();
                         } else {
-                            res.sendStatus(401).end();
+                            resolve(decoded);
                         }
-                    })
+                    });
                 } else {
-                    res.sendStatus(401).end();
+                    reject('Incorrect authorization header');
                 }
             } else {
-                res.sendStatus(401).end();
+                reject('Authorization header not present');
             }
         });
     }
