@@ -7,7 +7,7 @@ import {StorageService} from './services/storage.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    private loggedIn: boolean;
+    loggedIn: boolean;
 
     constructor(private storageService: StorageService) {
         storageService.subscribe((key, value) => {
