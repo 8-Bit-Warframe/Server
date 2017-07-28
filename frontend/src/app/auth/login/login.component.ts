@@ -12,10 +12,6 @@ import {StorageService} from '../../services/storage.service';
 })
 
 export class LoginComponent implements OnInit {
-
-    email = '';
-    password = '';
-
     form: FormGroup;
 
     constructor(private formBuilder: FormBuilder, private authService: AuthService, private storageService: StorageService) {
@@ -23,18 +19,19 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-            'email': [this.email, [
+            'email': ['', [
                 Validators.required,
                 Validators.email
             ]],
-            'password': [this.password, [
+            'password': ['', [
                 Validators.required
             ]]
         });
     }
 
     onSubmit() {
-        this.authService.login(this.email, this.password).then(value => {
+        let data = this.form.value;
+        this.authService.login(data.email, data.password).then(value => {
             if (value.success) {
                 this.storageService.alias = value.user.alias;
                 this.storageService.email = value.user.email;

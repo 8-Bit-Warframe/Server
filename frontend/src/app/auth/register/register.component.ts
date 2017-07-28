@@ -12,11 +12,6 @@ import {StorageService} from '../../services/storage.service';
 })
 
 export class RegisterComponent implements OnInit {
-    alias = '';
-    email = '';
-    password = '';
-    password2 = '';
-
     form: FormGroup;
     formErrors = {
         'alias': '',
@@ -50,20 +45,20 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.formBuilder.group({
-                'alias': [this.alias, [
+                'alias': ['', [
                     Validators.required,
                     Validators.minLength(4),
                     Validators.maxLength(24)
                 ]],
-                'email': [this.email, [
+                'email': ['', [
                     Validators.required,
                     Validators.email
                 ]],
-                'password': [this.password, [
+                'password': ['', [
                     Validators.required,
                     Validators.minLength(5)
                 ]],
-                'password2': [this.password2, [
+                'password2': ['', [
                     Validators.required
                 ]]
             },
@@ -102,7 +97,8 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        this.authService.register(this.alias, this.email, this.password, this.password2).then(value => {
+        let data = this.form.value;
+        this.authService.register(data.alias, data.email, data.password, data.password2).then(value => {
             if (value.success) {
                 this.storageService.alias = value.user.alias;
                 this.storageService.email = value.user.email;

@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (submit)="onSubmit()">
 	<md-input-container>
 		<input
 				mdInput
@@ -47,7 +47,7 @@
 			{{formErrors.password2}}
 		</md-error>
 	</md-input-container>
-	<button md-raised-button [disabled]="form.invalid" (submit)="onSubmit()">
+	<button md-raised-button [disabled]="form.invalid">
 		REGISTER
 	</button>
 </form>
