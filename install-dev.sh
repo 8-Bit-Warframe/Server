@@ -4,6 +4,7 @@ npm install
 ng build -prod
 cd ../backend
 npm install
+gulp
 cd ../matchmaking
 npm install
 cd ..
