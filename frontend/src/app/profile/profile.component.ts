@@ -10,7 +10,7 @@ import {StorageService} from '../services/storage.service';
 })
 
 export class ProfileComponent implements OnInit {
-    private user = {
+    user = {
         alias: '',
         email: '',
         friends: [],
