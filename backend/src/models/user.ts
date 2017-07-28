@@ -95,6 +95,19 @@ export class UserModel {
                       .catch(reason => false);
     }
 
+    rejectFriendRequest(id: any): Promise<boolean> {
+        let a = this.userDocument.update({
+            $pull: {
+                incomingFriendRequests: id
+            }
+        });
+        let b = UserModel.getUser({_id: id})
+                         .then(value => value.removeOutgoingFriendRequest(id));
+        return Promise.all([a, b])
+                      .then(value => true)
+                      .catch(reason => false);
+    }
+
     getAllFriends() {
         return Promise.all([
             Promise.all(this.friends).then(value => value.map(UserModel.getAliasFromUser)),
