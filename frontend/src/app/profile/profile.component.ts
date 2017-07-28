@@ -30,19 +30,19 @@ export class ProfileComponent implements OnInit {
 
     addFriend() {
         this.profileService.addFriend(this.friendAlias)
-            .then(value => this.getFriends)
+            .then(value => this.getFriends())
             .catch(console.error);
     }
 
     acceptFriend(id: string) {
         this.profileService.acceptFriendRequest(id)
-            .then(value => this.getFriends)
+            .then(value => this.getFriends())
             .catch(console.error);
     }
 
     rejectFriend(id: string) {
         this.profileService.rejectFriendRequest(id)
-            .then(value => this.getFriends)
+            .then(value => this.getFriends())
             .catch(console.error);
     }
 
