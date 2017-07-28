@@ -31,11 +31,11 @@ export class UserModel {
     }
 
     get incomingFriendRequests() {
-        return this.userDocument.incomingFriendRequests;
+        return this.userDocument.incomingFriendRequests.map(value => UserModel.getUser({'_id': value}));
     }
 
     get outgoingFriendRequests() {
-        return this.userDocument.outgoingFriendRequests;
+        return this.userDocument.outgoingFriendRequests.map(value => UserModel.getUser({'_id': value}));
     }
 
     get createdAt() {
