@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 import {AuthService} from '../services/auth.service';
 import {StorageService} from '../../services/storage.service';
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
         }
     };
 
-    constructor(private formBuilder: FormBuilder, private authService: AuthService, private storageService: StorageService) {
+    constructor(private formBuilder: FormBuilder, private authService: AuthService, private storageService: StorageService, private router: Router) {
     }
 
     ngOnInit() {
@@ -103,6 +104,8 @@ export class RegisterComponent implements OnInit {
                 this.storageService.alias = value.user.alias;
                 this.storageService.email = value.user.email;
                 this.storageService.jwt = value.user.jwt;
+                // noinspection JSIgnoredPromiseFromCall
+                this.router.navigateByUrl('/profile');
             } else {
                 alert(`Error: ${value.message}`);
             }
