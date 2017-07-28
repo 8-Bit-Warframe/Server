@@ -145,6 +145,11 @@ export class UserModel {
         });
     }
 
+    static updateUser(conditions: object, update: object) {
+        UserModel.init();
+        return UserModel.userRepository.findOneAndUpdate(conditions, update);
+    }
+
     private static filterUserProperties(user: UserModel) {
         return {
             id: user.id,

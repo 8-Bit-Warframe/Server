@@ -31,6 +31,10 @@ export abstract class BaseRepository<T extends Document> implements IRead<T>, IW
         return this.model.find(conditions, options);
     }
 
+    findOneAndUpdate(conditions: object, update: object) {
+        return this.model.findOneAndUpdate(conditions, update);
+    }
+
     create(item: T): Promise<T> {
         return this.model.create(item);
     }
