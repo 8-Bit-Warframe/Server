@@ -60,7 +60,7 @@ export class StorageService {
     }
 
     private static load(key: string) {
-        window.localStorage.getItem(key);
+        return window.localStorage.getItem(key);
     }
 }
 
