@@ -55,8 +55,11 @@ export class UserModel {
             $addToSet: {
                 outgoingFriendRequests: value.id
             }
-        })).catch(reason => false);
+        }))
+                 .then(value => true)
+                 .catch(reason => false);
         let b = p.then(value => value.addIncomingFriendRequest(this.id))
+                 .then(value => true)
                  .catch(reason => false);
         return Promise.all([a, b])
                       .then(results => results[0] === true && results[1] === true);
