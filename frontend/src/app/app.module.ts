@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
-import {MdButtonModule, MdInputModule} from '@angular/material';
+import {MdButtonModule, MdCardModule, MdIconModule, MdInputModule, MdListModule} from '@angular/material';
 
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -18,6 +18,7 @@ import {ForumService} from './forums/services/forum-service';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
 import {StorageService} from './services/storage.service';
+import {ProfileComponent} from './profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +30,7 @@ import {StorageService} from './services/storage.service';
         AuthComponent,
         RegisterComponent,
         LoginComponent,
+        ProfileComponent,
         ImageCarouselComponent
     ],
     imports: [
@@ -37,7 +39,10 @@ import {StorageService} from './services/storage.service';
         FormsModule,
         HttpModule,
         MdButtonModule,
+        MdCardModule,
+        MdIconModule,
         MdInputModule,
+        MdListModule,
         ReactiveFormsModule,
         RouterModule.forRoot([
             {
@@ -55,6 +60,10 @@ import {StorageService} from './services/storage.service';
             {
                 path: 'auth',
                 component: AuthComponent
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent
             }
         ])
     ],
