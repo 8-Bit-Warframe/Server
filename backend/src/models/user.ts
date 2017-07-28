@@ -52,7 +52,7 @@ export class UserModel {
         let p: Promise<UserModel> = UserModel.getUser({alias: alias})
                                              .then(value => value === null ? Promise.reject('User not found') : Promise.resolve(value));
         let a = p.then(value => this.userDocument.update({
-            $push: {
+            $addToSet: {
                 outgoingFriendRequests: value.id
             }
         })).catch(reason => false);
@@ -64,7 +64,7 @@ export class UserModel {
 
     addIncomingFriendRequest(id: any) {
         return this.userDocument.update({
-            $push: {
+            $addToSet: {
                 incomingFriendRequests: id
             }
         });
