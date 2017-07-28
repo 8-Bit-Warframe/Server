@@ -110,9 +110,9 @@ export class UserModel {
 
     getAllFriends() {
         return Promise.all([
-            Promise.all(this.friends).then(value => value.map(UserModel.getAliasFromUser)),
-            Promise.all(this.incomingFriendRequests).then(value => value.map(UserModel.getAliasFromUser)),
-            Promise.all(this.outgoingFriendRequests).then(value => value.map(UserModel.getAliasFromUser))
+            Promise.all(this.friends).then(value => value.map(UserModel.filterUserProperties)),
+            Promise.all(this.incomingFriendRequests).then(value => value.map(UserModel.filterUserProperties)),
+            Promise.all(this.outgoingFriendRequests).then(value => value.map(UserModel.filterUserProperties))
         ]).then(values => ({
             friends: values[0],
             incomingFriendRequests: values[1],
@@ -145,7 +145,10 @@ export class UserModel {
         });
     }
 
-    private static getAliasFromUser(user: UserModel) {
-        return user.alias;
+    private static filterUserProperties(user: UserModel) {
+        return {
+            id: user.id,
+            alias: user.alias
+        };
     }
 }
