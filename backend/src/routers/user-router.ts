@@ -52,7 +52,7 @@ export class UserRouter {
         });
     }
 
-    private static checkJwt(req: Request): Promise<string> {
+    private static checkJwt(req: Request): Promise<object> {
         return new Promise((resolve, reject) => {
             if (req.headers['authorization']) {
                 let split = (<string>req.headers['authorization']).split(' ');
