@@ -25,23 +25,32 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.getFriends();
+    }
+
+    addFriend() {
+        this.profileService.addFriend(this.friendAlias)
+            .then(this.getFriends)
+            .catch(console.error);
+    }
+
+    acceptFriend(id: string) {
+        this.profileService.acceptFriendRequest(id)
+            .then(this.getFriends)
+            .catch(console.error);
+    }
+
+    rejectFriend(id: string) {
+        this.profileService.rejectFriendRequest(id)
+            .then(this.getFriends)
+            .catch(console.error);
+    }
+
+    getFriends() {
         this.profileService.getFriends().then(value => {
             this.user.friends = value.friends;
             this.user.incomingFriendRequests = value.incomingFriendRequests;
             this.user.outgoingFriendRequests = value.outgoingFriendRequests;
         });
-    }
-    
-    addFriend() {
-        this.profileService.addFriend(this.friendAlias)
-            .then(console.log);
-    }
-
-    acceptFriend(id: string) {
-        this.profileService.acceptFriendRequest(id).catch(console.error);
-    }
-
-    rejectFriend(id: string) {
-        this.profileService.rejectFriendRequest(id).catch(console.error);
     }
 }
