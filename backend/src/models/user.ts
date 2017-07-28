@@ -6,6 +6,8 @@ export class UserModel {
 
     private userDocument: UserDocument;
 
+    private friendStatus?: FriendStatus;
+
     private constructor(userDocument: UserDocument) {
         this.userDocument = userDocument;
     }
@@ -89,6 +91,27 @@ export class UserModel {
                       .catch(reason => false);
     }
 
+    getAllFriends() {
+        return Promise.all([
+            Promise.all(this.friends).then(value => {
+                value.forEach(value2 => value2.friendStatus = FriendStatus.ACCEPTED);
+                return value;
+            }),
+            Promise.all(this.incomingFriendRequests).then(value => {
+                value.forEach(value2 => value2.friendStatus = FriendStatus.INCOMING);
+                return value;
+            }),
+            Promise.all(this.outgoingFriendRequests).then(value => {
+                value.forEach(value2 => value2.friendStatus = FriendStatus.OUTGOING);
+                return value;
+            })
+        ]).then(values => {
+            let friends: UserModel[] = [];
+            friends.concat(values[0], values[1], values[2]);
+            return friends;
+        });
+    }
+
     private static init() {
         UserModel.userRepository = UserModel.userRepository || new UserRepository();
     }
@@ -113,4 +136,10 @@ export class UserModel {
             }
         });
     }
+}
+
+enum FriendStatus {
+    'ACCEPTED',
+    INCOMING,
+    OUTGOING
 }
