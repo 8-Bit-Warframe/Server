@@ -38,6 +38,18 @@ export class UserRouter {
                           error: reason
                       }).end());
         });
+        router.post('/user/friends/accept', (req: Request, res: Response) => {
+            UserRouter.checkJwt(req)
+                      .then(value => UserModel.getUser({email: value['email']}))
+                      .then(value => value.acceptFriendRequest(req.body.id))
+                      .then(value => res.json({
+                          success: value
+                      }).end())
+                      .catch(reason => res.sendStatus(401).json({
+                          success: false,
+                          error: reason
+                      }).end());
+        });
     }
 
     private static checkJwt(req: Request): Promise<string> {

@@ -68,6 +68,27 @@ export class UserModel {
         });
     }
 
+    removeOutgoingFriendRequest(id: any) {
+        return this.userDocument.update({
+            $pull: {
+                outgoingFriendRequests: id
+            }
+        });
+    }
+
+    acceptFriendRequest(id: any): Promise<boolean> {
+        let a = this.userDocument.update({
+            $pull: {
+                incomingFriendRequests: id
+            }
+        });
+        let b = UserModel.getUser({_id: id})
+                         .then(value => value.removeOutgoingFriendRequest(id));
+        return Promise.all([a, b])
+                      .then(value => true)
+                      .catch(reason => false);
+    }
+
     private static init() {
         UserModel.userRepository = UserModel.userRepository || new UserRepository();
     }
