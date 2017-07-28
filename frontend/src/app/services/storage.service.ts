@@ -7,7 +7,7 @@ export class StorageService {
         email: undefined,
         jwt: undefined
     };
-    private observers: StorageListener[];
+    private observers: StorageListener[] = [];
 
     constructor() {
         this.data.alias = StorageService.load('alias');
