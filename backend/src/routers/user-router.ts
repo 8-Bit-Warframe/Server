@@ -17,7 +17,7 @@ export class UserRouter {
         router.get('/user/friends', (req: Request, res: Response) => {
             UserRouter.checkJwt(req)
                       .then(value => UserModel.getUser({email: value['email']}))
-                      .then(value => value.friends)
+                      .then(value => value.getAllFriends())
                       .then(value => {
                           value.forEach(item => ({alias: item.alias}));
                           return value;
