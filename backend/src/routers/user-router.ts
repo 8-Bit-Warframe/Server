@@ -18,10 +18,6 @@ export class UserRouter {
             UserRouter.checkJwt(req)
                       .then(value => UserModel.getUser({email: value['email']}))
                       .then(value => value.getAllFriends())
-                      .then(value => {
-                          value.forEach(item => ({alias: item.alias}));
-                          return value;
-                      })
                       .then(value => res.json(value).end())
                       .catch(reason => res.sendStatus(401).json({
                           error: reason

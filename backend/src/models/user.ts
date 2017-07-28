@@ -6,8 +6,6 @@ export class UserModel {
 
     private userDocument: UserDocument;
 
-    private friendStatus?: FriendStatus;
-
     private constructor(userDocument: UserDocument) {
         this.userDocument = userDocument;
     }
@@ -96,23 +94,14 @@ export class UserModel {
 
     getAllFriends() {
         return Promise.all([
-            Promise.all(this.friends).then(value => {
-                value.forEach(value2 => value2.friendStatus = FriendStatus.ACCEPTED);
-                return value;
-            }),
-            Promise.all(this.incomingFriendRequests).then(value => {
-                value.forEach(value2 => value2.friendStatus = FriendStatus.INCOMING);
-                return value;
-            }),
-            Promise.all(this.outgoingFriendRequests).then(value => {
-                value.forEach(value2 => value2.friendStatus = FriendStatus.OUTGOING);
-                return value;
-            })
-        ]).then(values => {
-            let friends: UserModel[] = [];
-            friends.concat(values[0], values[1], values[2]);
-            return friends;
-        });
+            Promise.all(this.friends).then(value => value.map(UserModel.getAliasFromUser)),
+            Promise.all(this.incomingFriendRequests).then(value => value.map(UserModel.getAliasFromUser)),
+            Promise.all(this.outgoingFriendRequests).then(value => value.map(UserModel.getAliasFromUser))
+        ]).then(values => ({
+            friends: values[0],
+            incomingFriendRequests: values[1],
+            outgoingFriendRequests: values[2]
+        })).catch(console.error);
     }
 
     private static init() {
@@ -139,10 +128,8 @@ export class UserModel {
             }
         });
     }
-}
 
-enum FriendStatus {
-    'ACCEPTED',
-    INCOMING,
-    OUTGOING
+    private static getAliasFromUser(user: UserModel) {
+        return user.alias;
+    }
 }
