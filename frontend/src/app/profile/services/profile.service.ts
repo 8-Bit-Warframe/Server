@@ -26,6 +26,18 @@ export class ProfileService {
                    .catch(console.error);
     }
 
+    acceptFriendRequest(id: string) {
+        return this.http.post(`${this.baseUrl}/user/friends/accept`, {id: id}, {headers: this.headers})
+                   .toPromise()
+                   .catch(console.error);
+    }
+
+    rejectFriendRequest(id: string) {
+        return this.http.post(`${this.baseUrl}/user/friends/reject`, {id: id}, {headers: this.headers})
+                   .toPromise()
+                   .catch(console.error);
+    }
+
     getFriends(): Promise<any> {
         return this.http.get(`${this.baseUrl}/user/friends`, {headers: this.headers})
                    .toPromise()

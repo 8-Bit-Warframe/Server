@@ -36,4 +36,12 @@ export class ProfileComponent implements OnInit {
         this.profileService.addFriend(this.friendAlias)
             .then(console.log);
     }
+
+    acceptFriend(id: string) {
+        this.profileService.acceptFriendRequest(id).catch(console.error);
+    }
+
+    rejectFriend(id: string) {
+        this.profileService.rejectFriendRequest(id).catch(console.error);
+    }
 }
