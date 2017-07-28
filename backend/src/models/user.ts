@@ -83,6 +83,9 @@ export class UserModel {
         let a = this.userDocument.update({
             $pull: {
                 incomingFriendRequests: id
+            },
+            $push: {
+                friends: id
             }
         });
         let b = UserModel.getUser({_id: id})
