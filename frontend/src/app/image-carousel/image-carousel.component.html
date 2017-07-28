@@ -1,5 +1,5 @@
 <div *ngFor="let image of images; let i = index">
-	<div class="image-card mdl-card mdl-shadow--2dp b-lazy"
+	<div class="image-card mdl-card mdl-shadow--2dp" id="carousel-{{i}}"
 		 [class.far-left]="i < current - 1"
 		 [class.left]="i == current - 1"
 		 [class.current]="i == current"

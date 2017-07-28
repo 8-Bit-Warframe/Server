@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 
-export class Image {
+export class ImageData {
     id: number;
     url: string;
     caption: string;
+    loaded?: boolean = false;
 }
 
 declare const Blazy: any;
@@ -18,7 +19,7 @@ export class ImageCarouselComponent implements OnInit {
     timer;
     direction = 1;
     current = 0;
-    images: Image[] = [
+    images: ImageData[] = [
         {
             id: 0,
             url: 'assets/images/image1.png',
@@ -29,11 +30,11 @@ export class ImageCarouselComponent implements OnInit {
     ngOnInit() {
         if (this.images.length > 1) {
             this.createInterval();
-            ImageCarouselComponent.runBlazy();
         }
+        this.loadImages();
     }
 
-    onSelect(image: Image): void {
+    onSelect(image: ImageData): void {
         if (this.images.length > 1) {
             this.current = image.id;
             clearInterval(this.timer);
@@ -50,17 +51,28 @@ export class ImageCarouselComponent implements OnInit {
                 this.direction = 1;
             }
             this.current += this.direction;
-            ImageCarouselComponent.runBlazy();
+            this.loadImages();
         }, 5000);
     }
 
-    private static runBlazy() {
-        new Blazy({
-            src: 'data-blazy',
-            offset: 1000,
-            success: function(e: Element) {
-                e.removeChild(e.childNodes[1]);
+    private loadImages() {
+        this.images.forEach((value, index) => {
+            if (!value.loaded && Math.abs(this.current - index) <= 1) {
+                this.loadImage(value)
+                    .then(data => {
+                        let e = document.getElementById(`carousel-${data.id}`);
+                        e.style.backgroundImage = `url(${data.url})`;
+                        e.removeChild(e.childNodes[1]);
+                    });
             }
+        })
+    }
+
+    private loadImage(data: ImageData): Promise<ImageData> {
+        return new Promise(resolve => {
+            let img = new Image();
+            img.onload = ev => resolve(data);
+            img.src = data.url;
         });
     }
 }
