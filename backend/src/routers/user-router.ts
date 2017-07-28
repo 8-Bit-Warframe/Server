@@ -8,6 +8,7 @@ export class UserRouter {
         router.get('/user/profile', (req: Request, res: Response) => {
             UserRouter.checkJwt(req)
                       .then(value => UserModel.getUser({email: value['email']}))
+                      .then(value => ({alias: value.alias, email: value.email}))
                       .then(value => res.json(value).end())
                       .catch(reason => res.sendStatus(500).json({
                           error: reason
