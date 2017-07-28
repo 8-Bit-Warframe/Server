@@ -1,7 +1,7 @@
 cd frontend
 npm install
 ng build -prod
-cd backend
+cd ../backend
 npm install
 cd ../matchmaking
 npm install
