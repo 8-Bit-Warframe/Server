@@ -17,7 +17,7 @@ import {ForumSectionComponent} from './forums/forum-category/forum-category.comp
 import {ForumService} from './forums/services/forum-service';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
-import {StorageService} from './profile/profile.component';
+import {StorageService} from './services/storage.service';
 
 @NgModule({
     declarations: [
