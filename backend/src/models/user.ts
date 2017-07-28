@@ -71,25 +71,23 @@ export class UserModel {
         });
     }
 
-    removeOutgoingFriendRequest(id: any) {
-        return this.userDocument.update({
-            $pull: {
-                outgoingFriendRequests: id
-            }
-        });
-    }
-
     acceptFriendRequest(id: any): Promise<boolean> {
         let a = this.userDocument.update({
             $pull: {
                 incomingFriendRequests: id
             },
-            $push: {
+            $addToSet: {
                 friends: id
             }
-        });
-        let b = UserModel.getUser({_id: id})
-                         .then(value => value.removeOutgoingFriendRequest(id));
+        }).catch(console.error);
+        let b = UserModel.updateUser({_id: id}, {
+            $pull: {
+                outgoingFriendRequests: this.id
+            },
+            $addToSet: {
+                friends: this.id
+            }
+        }).catch(console.error);
         return Promise.all([a, b])
                       .then(value => true)
                       .catch(reason => false);
@@ -100,9 +98,12 @@ export class UserModel {
             $pull: {
                 incomingFriendRequests: id
             }
-        });
-        let b = UserModel.getUser({_id: id})
-                         .then(value => value.removeOutgoingFriendRequest(id));
+        }).catch(console.error);
+        let b = UserModel.updateUser({_id: id}, {
+            $pull: {
+                outgoingFriendRequests: this.id
+            }
+        }).catch(console.error);
         return Promise.all([a, b])
                       .then(value => true)
                       .catch(reason => false);
