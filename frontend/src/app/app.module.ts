@@ -19,12 +19,14 @@ import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
 import {StorageService} from './services/storage.service';
 import {ProfileComponent} from './profile/profile.component';
+import {DownloadComponent} from './download/download.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         AboutComponent,
+        DownloadComponent,
         ForumComponent,
         ForumSectionComponent,
         AuthComponent,
@@ -48,6 +50,10 @@ import {ProfileComponent} from './profile/profile.component';
             {
                 path: '',
                 component: HomeComponent
+            },
+            {
+                path: 'download',
+                component: DownloadComponent
             },
             {
                 path: 'about',
