@@ -1,9 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-class Player {
+export default class Player {
     constructor(ip, matchmakingPort, udpPort, tcpPort) {
         this.ip = ip;
         this.matchmakingPort = matchmakingPort;
@@ -23,4 +18,4 @@ class Player {
         return new Player(info.address, info.port, message.udpPort, message.tcpPort);
     }
 }
-exports.default = Player;
+//# sourceMappingURL=player.js.map
