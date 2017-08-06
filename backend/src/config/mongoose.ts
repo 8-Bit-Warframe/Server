@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import {Connection} from 'mongoose';
 
-const uri = 'mongodb://localhost/' + (process.env.LS_MONGODB || 'lsTest');
+const uri = process.env.MONGODB_URI || 'mongodb://localhost/lsTest';
 
 export let db: Connection;
 

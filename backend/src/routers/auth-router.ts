@@ -130,6 +130,6 @@ class AuthResponse {
         let payload: object = {
             email: this.user.email
         };
-        return jwt.sign(payload, process.env.LS_JWT_SECRET || 'secret');
+        return jwt.sign(payload, process.env.JWT_SECRET || 'secret');
     }
 }

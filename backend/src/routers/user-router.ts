@@ -67,7 +67,7 @@ export class UserRouter {
                 let split = (<string>req.headers['authorization']).split(' ');
                 if (split[0] === 'Bearer') {
                     let token = split[1];
-                    jwt.verify(token, process.env.LS_JWT_SECRET || 'secret', (error, decoded: object) => {
+                    jwt.verify(token, process.env.JWT_SECRET || 'secret', (error, decoded: object) => {
                         if (error) {
                             reject();
                         } else {
