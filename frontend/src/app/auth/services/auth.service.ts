@@ -15,15 +15,13 @@ export class AuthService {
     register(alias: string, email: string, password: string, password2: string): Promise<AuthResponse> {
         return this.http.post(`${this.baseUrl}/register`, {alias: alias, email: email, password: password, password2: password2})
                    .toPromise()
-                   .then(AuthService.extractData)
-                   .catch(console.error);
+                   .then(AuthService.extractData);
     }
 
     login(email: string, password: string): Promise<AuthResponse> {
         return this.http.post(`${this.baseUrl}/login`, {email: email, password: password})
                    .toPromise()
-                   .then(AuthService.extractData)
-                   .catch(console.error);
+                   .then(AuthService.extractData);
     }
 
     private static extractData(res: Response) {
